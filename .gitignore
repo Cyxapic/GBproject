@@ -1,0 +1,12 @@
+__pycache__/
+/media/
+venv/
+development.py
+secrets.json
+db.sqlite3
+*~
+*.pyc
+*.log
+/static/
+*.scss
+*.css.map

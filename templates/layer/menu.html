@@ -1,0 +1,30 @@
+<nav class="level border-b">
+  <div class="level-left">
+    <div class="level-item">
+      <div class="field has-addons">
+        <p class="control">
+          <input class="input" type="text" placeholder="Find a post">
+        </p>
+        <p class="control">
+          <button class="button">
+            Search
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="level-right">
+    <p class="level-item"><a href="/">Главная</a></strong></p>
+    <p class="level-item"><a href="{% url 'all_articles' %}">Статьи</a></p>
+    <p class="level-item"><a href="/about">Обо мне</a></p>
+    {% if user.is_authenticated %}
+    <p class="level-item"><a href="/logout">Выход</a></p>
+    {% else %}
+    <p class="level-item"><a href="#">Зарегестрироваться</a></p>
+    <p class="level-item"><a href="/login">Войти</a></p>
+    {% endif %}
+    {% if user.is_staff %}
+      <p class="level-item"><a href="/admin"><i class="fas fa-cogs"></i> Админка</a></p>
+    {% endif %}
+  </div>
+</nav>

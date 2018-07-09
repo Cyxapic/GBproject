@@ -1,0 +1,16 @@
+{% extends "layer/base.html" %}
+{% block context %}
+    <h1 class="title has-text-centered">Вход.</h1>
+    <p class="subtitle has-text-centered">
+        <strong><a href="#">Забыли пароль?</a></strong>
+    </p>
+    <div class="columns">
+        <div class="column">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form.as_ul}}
+                <button class="button is-primary" type="submit">Вход</button>
+            </form>
+        </div>
+    </div>
+{% endblock context %}

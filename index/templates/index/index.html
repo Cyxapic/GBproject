@@ -1,0 +1,18 @@
+{% extends "layer/base.html" %}
+{% block context %}
+    <h1 class="title has-text-centered">Последние статьи.</h1>
+    <p class="subtitle has-text-centered">
+        <strong><a href="{% url 'all_articles' %}">Посмотреть все записи</a></strong>
+    </p>
+    <div class="columns">
+        <div class="column">
+            <ul>
+                {% for article in articles_objects %}
+                    <li class="has-text-centered">
+                        <a href="{% url 'article_item' article.pk %}">{{ article.title }} Дата: {{ article.created | date:'F Y' }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock context %}

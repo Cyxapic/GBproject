@@ -1,0 +1,16 @@
+{% extends "layer/base.html" %}
+{% block context %}
+    <h1 class="title has-text-centered">Последние статьи.</h1>
+    <p class="subtitle has-text-centered">
+        <strong><a href="{% url 'all_articles' %}">Посмотреть все записи</a></strong>
+    </p>
+    <div class="columns">
+        <div class="column">
+            <ul>
+               <li class="has-text-centered">Атор Блога</li>
+               <li class="has-text-centered">Что то еще</li>
+               <li class="has-text-centered">И еще</li>
+            </ul>
+        </div>
+    </div>
+{% endblock context %}

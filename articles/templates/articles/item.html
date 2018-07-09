@@ -1,0 +1,15 @@
+{% extends "layer/base.html" %}
+{% block context %}
+    <div class="box">
+        <article class="media">
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{ article.title }}</strong> <small>Статья от: {{ article.created | date:'F Y' }}</small>
+                    </p>
+                    <p>{{ article.text }}</p>
+                </div>
+            </div>
+        </article>
+    </div>
+{% endblock context %}
