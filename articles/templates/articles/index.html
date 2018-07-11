@@ -1,15 +1,36 @@
 {% extends "layer/base.html" %}
+{% block title %}Много букАв тут...{% endblock title %}
 {% block context %}
-    <h1 class="title has-text-centered">Статьи.</h1>
+    <h1 class="title has-text-centered">Записки о всяком!.</h1>
+    <div class="columns is-multiline is-centered">
+        {% for article in articles %}
+            <a class="column is-3 article-item" href="{% url 'article_item' article.pk %}">
+                <h2  class="has-text-centered">{{ article.title }}</h2>
+                <strong><i class="far fa-bookmark"></i> {{article.category__name}}</strong>
+                <div class="">
+                    <span class="">
+                    <i class="fas fa-calendar-alt"></i>{{ article.created | date:'F Y' }}</span>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
     <div class="columns">
-        <div class="column">
-            <ul>
-                {% for article in articles %}
-                    <li class="has-text-centered">
-                        <a href="{% url 'article_item' article.pk %}">{{ article.title }} Дата: {{ article.created | date:'F Y' }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+        {% if is_paginated %}
+            <nav class="column pagination is-rounded">
+                <ul class="pagination-list pag-ul">
+                    {% if page_obj.has_previous %}
+                        <li class="pagination-link">
+                            <a href="?page={{ page_obj.previous_page_number }}">Обратно</a>
+                        </li>
+                    {% endif %}
+                    <li><a class="pagination-link is-current">{{ page_obj.number }}</a></li>
+                    {% if page_obj.has_next %}
+                        <li class="pagination-link">
+                            <a href="?page={{ page_obj.next_page_number }}">Туда</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
     </div>
 {% endblock context %}

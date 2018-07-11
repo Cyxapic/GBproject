@@ -7,11 +7,11 @@ from .models import Article
 class AllArticlesView(ListView):
     template_name = 'articles/index.html'
     context_object_name = 'articles'
-    paginate_by = 10
+    paginate_by = 9
 
     def get_queryset(self, **kwargs):
         query = Article.objects.filter(is_published=True)
-        query = query.values('pk', 'created', 'title')
+        query = query.values('pk', 'category__name', 'created', 'title')
         query = query.order_by('-created')
         return query
 

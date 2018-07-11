@@ -2,17 +2,37 @@
 {% block context %}
     <h1 class="title has-text-centered">Последние статьи.</h1>
     <p class="subtitle has-text-centered">
-        <strong><a href="{% url 'all_articles' %}">Посмотреть все записи</a></strong>
+        <strong>
+        <a href="{% url 'all_articles' %}">Посмотреть все записи</a>
+        </strong>
     </p>
-    <div class="columns">
-        <div class="column">
-            <ul>
-                {% for article in articles_objects %}
-                    <li class="has-text-centered">
-                        <a href="{% url 'article_item' article.pk %}">{{ article.title }} Дата: {{ article.created | date:'F Y' }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+    <div class="columns is-multiline is-centered has-text-centered">
+        {% for article in articles_objects %}
+            <div class="column is-3 article-item card">
+                <div class="card-image">
+                    <figure class="image is-3by3">
+                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Картинка к записи">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <h4 class="is-4 has-text-centered">
+                            {{ article.title }}
+                            </h4>
+                            <p class="subtitle is-6">
+                                <strong><i class="far fa-bookmark"></i> {{article.category__name}}</strong>
+                            </p>
+                            <p class="subtitle is-6">
+                                <strong><i class="fas fa-calendar-alt"></i> <time>{{ article.created | date:'d F Y' }}</time></strong>
+                            </p>
+                        </div>
+                    </div>
+                    <a href="{% url 'article_item' article.pk %}">
+                        Подробнее...
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock context %}

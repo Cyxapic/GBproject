@@ -1,6 +1,55 @@
+html, body {
+    height: 100%;
+}
+.container{
+    margin-top: 50px;
+}
+.content{
+    display: flex;
+}
+.errorlist{
+    margin: 0 auto !important;
+    padding: 0;
+}
+.errorlist li {
+    list-style-type: none;
+    color: #ff3860;
+    display: block;
+    font-size: .75rem;
+    margin-top: .25rem;
+}
+.pag-ul{
+    justify-content: center;
+}
+.pag-ul li{
+    list-style-type: none;
+}
+.form-auth{
+    margin:10px;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+}
 .level{
     padding: 10px 15px;
 }
 .border-b{
     border-bottom: 2px solid #cecece;
 }
+.article-item{
+    margin:10px;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    color: #5e5b5b;
+    position: relative;
+}
+.article-item:hover{
+    border-color: #47b11d;
+    box-shadow: 3px 1px 2px 3px #47b11d;
+    color: #000000;
+}
+.article-item h2{
+    font-size: 1.4em;
+}
+.card-content a {display: block; position: absolute; bottom: 10px;}
+.content small {display: inline-block; margin-left: 10px;}
+.modal-content {margin-top: 100px;}

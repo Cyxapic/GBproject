@@ -1,21 +1,11 @@
 {% extends "layer/base.html" %}
 {% block context %}
-    <h1 class="title has-text-centered">Вход.</h1>
+    <h1 class="title has-text-centered">Стать, бро очень просто!</h1>
     <p class="subtitle has-text-centered">
-        <strong><a href="#">Забыли пароль?</a></strong>
+        <strong>Просто заполни всякое ниже!</strong>
     </p>
-    {% if messages %}
-        {% for msg in messages %}
-            <p class="subtitle has-text-centered">
-                {{msg}}
-            </p>
-        {% endfor %}
-    {% endif %}
     <div class="columns is-centered">
         <div class="column is-half has-text-centered form-auth">
-            {% if form.errors %}
-                {{form.non_field_errors}}
-            {% endif %}
             <form action="" method="post">
                 {% csrf_token %}
                 {% for field in form %}
@@ -29,7 +19,7 @@
                         {% endif %}
                     </div>
                 {% endfor %}
-                <button class="button is-primary" type="submit">Вход</button>
+                <button class="button is-link">Я готов стать бро!</button>
             </form>
         </div>
     </div>
