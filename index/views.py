@@ -18,6 +18,9 @@ class IndexView(ListView):
 
 
 class RegView(FormView):
+    '''регистрация, так как не переопределял модель пользовотеля
+       засунул сюда
+    '''
     template_name = 'index/reg.html'
     form_class = UserCreationForm
     success_url = '/login/'
