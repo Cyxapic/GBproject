@@ -7,11 +7,11 @@
         </strong>
     </p>
     <div class="columns is-multiline is-centered has-text-centered">
-        {% for article in articles_objects %}
+        {% for article in articles %}
             <div class="column is-3 article-item card">
                 <div class="card-image">
                     <figure class="image is-3by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Картинка к записи">
+                        <img src="{{article.get_thumbnail}}" alt="Картинка к записи">
                     </figure>
                 </div>
                 <div class="card-content">
@@ -21,7 +21,7 @@
                             {{ article.title }}
                             </h4>
                             <p class="subtitle is-6">
-                                <strong><i class="far fa-bookmark"></i> {{article.category__name}}</strong>
+                                <strong><i class="far fa-bookmark"></i> {{article.category}}</strong>
                             </p>
                             <p class="subtitle is-6">
                                 <strong><i class="fas fa-calendar-alt"></i> <time>{{ article.created | date:'d F Y' }}</time></strong>
