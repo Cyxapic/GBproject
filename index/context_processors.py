@@ -1,6 +1,6 @@
 import re
 
-from django.urls import reverse
+from django.urls import reverse, NoReverseMatch
 
 from .models import MainMenu
 
@@ -8,7 +8,12 @@ from .models import MainMenu
 def menus(request):
     menus = MainMenu.objects.exclude(posnum=0).values('url', 'title')
     for menu in menus:
-        if match_url(reverse(menu["url"]), request.path):
+        try:
+            url = reverse(menu["url"])
+        except NoReverseMatch:
+            # Позже привяжу логирование
+            continue
+        if match_url(url, request.path):
             menu["style"] = "menu-active"
         else:
             menu["style"] = None
