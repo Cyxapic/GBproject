@@ -1,18 +1,23 @@
-from django.shortcuts import reverse
+import re
+
+from django.urls import reverse
+
+from .models import MainMenu
+
 
 def menus(request):
-    '''Можно потом в БД засунуть, чтобы править проще было'''
-    menu_data = [
-                    {"url":"home",
-                     "name": "Наиглавнейшая",
-                     "style": None,},
-                    {"url":"all_articles",
-                     "name": "Записки о всяком",
-                     "style": None,}
-                ]
-    for menu in menu_data:
-        if reverse(menu["url"]) == request.path:
-            menu["style"] = "is-active"
+    menus = MainMenu.objects.exclude(posnum=0).values('url', 'title')
+    for menu in menus:
+        if match_url(reverse(menu["url"]), request.path):
+            menu["style"] = "menu-active"
         else:
             menu["style"] = None
-    return {"menus": menu_data}
+    return {"menus": menus}
+
+
+def match_url(url, current_url):
+    if re.match(r"%s\d+/$"%url, current_url):
+        return True
+    elif re.match(r"%s$"%url, current_url):
+        return True
+    return False

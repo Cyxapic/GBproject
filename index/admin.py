@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import MainMenu
+
+
+@admin.register(MainMenu)
+class MainMenuAdmin(admin.ModelAdmin):
+    list_display = ('url', 'title', 'posnum')

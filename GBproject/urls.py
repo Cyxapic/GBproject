@@ -5,12 +5,12 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 
-from index.views import RegView
+from index.views import GBLoginView, RegView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', LoginView.as_view(template_name="layer/login.html")),
+    path('login/', GBLoginView.as_view()),
     path('logout/', LogoutView.as_view(template_name="layer/logout.html")),
     path('register/', RegView.as_view()),
     path('thanks/', TemplateView.as_view(template_name='index/thanks.html')),

@@ -13,9 +13,12 @@
     {% endblock cssconnect %}
 </head>
 <body>
+    <div class="mob-btn-wraper">
+        <a class="mob-btn tick"></a>
+    </div>
     <div class="container">
         <div class="colums content">
-            <div class="column is-one-fifth">
+            <div id="main-menu" class="column is-one-fifth">
                 {% include "layer/menu.html" %}
             </div>
             <div class="column">
@@ -25,7 +28,7 @@
         </div>
     </div>
     {% block jsconnect %}
-    <script src="{% static "index/js/main.js" %}"></script>
+        <script src="{% static "index/js/main.js" %}"></script>
     {% endblock jsconnect %}
 </body>
 </html>

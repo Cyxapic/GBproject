@@ -1,15 +1,13 @@
 {% extends "layer/base.html" %}
 {% block title %}Много букАв тут...{% endblock title %}
 {% block context %}
-    <h1 class="title has-text-centered">Записки о всяком!.</h1>
+    <h1 class="title has-text-centered">Категории "Записок о всяком"!</h1>
     <div class="columns is-multiline is-centered">
-        {% for article in articles %}
-            <a class="column is-3 article-item" href="{% url 'article_item' article.pk %}">
-                <h2  class="has-text-centered">{{ article.title }}</h2>
-                <strong><i class="far fa-bookmark"></i> {{article.category__name}}</strong>
+        {% for categry in categories %}
+            <a class="column is-3 article-item" href="{% url 'categories_items' categry.pk %}">
+                <h2  class="has-text-centered">{{ categry.name }}</h2>
                 <div class="">
-                    <span class="">
-                    <i class="fas fa-calendar-alt"></i>{{ article.created | date:'F Y' }}</span>
+                    {{ categry.description }}
                 </div>
             </a>
         {% endfor %}
