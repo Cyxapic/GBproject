@@ -1,9 +1,9 @@
 {% extends "layer/base.html" %}
 {% block context %}
-    <h1 class="title has-text-centered">Все записи.</h1>
+    <h1 class="title has-text-centered">Записи в категории "{{category}}".</h1>
     <p class="subtitle has-text-centered">
         <strong>
-        <a href="{% url 'categories' %}">Категории записей</a>
+        <a href="{% url 'categories' %}">Посмотреть все категории записей</a>
         </strong>
     </p>
     <div class="columns is-multiline is-centered has-text-centered">
@@ -20,16 +20,15 @@
                             <h4 class="is-4 has-text-centered">
                             {{ article.title }}
                             </h4>
-                            <p class="is-6">
-                                <a href="{% url 'categories_items' article.category.pk %}">
-                                <strong><i class="far fa-bookmark"></i> {{article.category}}</strong></a>
+                            <p class="subtitle is-6">
+                                <strong><i class="far fa-bookmark"></i> {{article.category}}</strong>
                             </p>
                             <p class="subtitle is-6">
                                 <strong><i class="fas fa-calendar-alt"></i> <time>{{ article.created | date:'d F Y' }}</time></strong>
                             </p>
                         </div>
                     </div>
-                    <a class="learn-more" href="{% url 'article_item' article.pk %}">
+                    <a href="{% url 'article_item' article.pk %}">
                         Подробнее...
                     </a>
                 </div>
