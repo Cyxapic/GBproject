@@ -1,15 +1,19 @@
 {% extends "layer/base.html" %}
+{% load static %}
 {% block title %}Много букАв тут...{% endblock title %}
+{% block cssconnect %}
+<link rel="stylesheet" href="{% static "articles/css/style.css" %}">
+{% endblock cssconnect %}
 {% block context %}
     <h1 class="title has-text-centered">Категории "Записок о всяком"!</h1>
     <div class="columns is-multiline is-centered">
         {% for categry in categories %}
-            <a class="column is-3 article-item" href="{% url 'categories_items' categry.pk %}">
-                <h2  class="has-text-centered">{{ categry.name }}</h2>
-                <div class="">
-                    {{ categry.description }}
-                </div>
+        <div class="category-card">
+            <div class="front article-item"><h2 class="has-text-centered">{{ categry.name }}</h2></div>
+            <a class="back" href="{% url 'categories_items' categry.pk %}">
+                {{ categry.description }}
             </a>
+        </div>
         {% endfor %}
     </div>
     <div class="columns">

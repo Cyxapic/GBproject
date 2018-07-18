@@ -5,3 +5,7 @@ function show_modal() {
 function hide_modal(obj){
     obj.parentElement.style.display = "none";
 }
+function msg_modal(selector){
+    let modal = document.querySelector(selector);
+    modal.style.display = "none";
+}

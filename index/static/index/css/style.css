@@ -36,17 +36,19 @@ html, body {
     border-bottom: 2px solid #cecece;
 }
 .article-item{
-    margin:10px;
-    border: 1px solid #cecece;
-    border-radius: 5px;
-    color: #5e5b5b;
-    position: relative;
+  display: block;
+  margin:10px;
+  border: 1px solid #cecece;
+  border-radius: 5px;
+  color: #5e5b5b;
+  position: relative;
 }
 .article-item:hover{
     border-color: #47b11d;
     box-shadow: 3px 1px 2px 3px #47b11d;
     color: #000000;
 }
+.article-item a {display: block;}
 .article-item h2{
     font-size: 1.4em;
 }

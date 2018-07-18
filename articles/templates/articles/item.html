@@ -1,12 +1,16 @@
 {% extends "layer/base.html" %}
+{% load static %}
 {% block title %}Записка об {{ article.title }}{% endblock title %}
+{% block cssconnect %}
+<link rel="stylesheet" href="{% static "articles/css/style.css" %}">
+{% endblock cssconnect %}
 {% block context %}
 <div class="box">
   <article class="media">
     <div class="media-left">
       <figure class="image is-64x64">
         <a onclick="show_modal();">
-          <img src="{{article.get_thumbnail}}" alt="Image">
+          <img src="{{article.articleimage_set.last.get_thumbnail}}" alt="Image">
         </a>
       </figure>
     </div>
@@ -28,24 +32,51 @@
         </div>
       </div>
       <nav class="level is-mobile">
-          <div class="level-left">
-            <a class="level-item" href="{% url 'categories' %}">
+        <div class="level-left">
+          <a class="level-item" href="{% url 'categories' %}">
+            <span class="icon is-small">
+              <i class="fas fa-reply" aria-hidden="true"></i>
+            </span>
+          </a>
+        </div>
+        {% if user.is_superuser %}
+        <div class="level-left">
+            <a class="level-item" href="{% url 'article_edit' article.pk %}">
               <span class="icon is-small">
-                <i class="fas fa-reply" aria-hidden="true"></i>
+                <i class="fas fa-edit"></i>
               </span>
             </a>
           </div>
-        </nav>
+          <div class="level-left">
+            <a class="level-item" href="{% url 'article_del' article.pk %}">
+              <span class="icon is-small">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+        {% endif %}
+      </nav>
     </div>
   </article>
 </div>
 <div class="modal">
   <div class="modal-background"></div>
   <div class="modal-content">
-    <p class="image is-4by3">
-      <img src="{{article.get_image}}" alt="">
-    </p>
+    <div class="gallery gallery-1">
+      <div class="photo">
+        {% for image in article.articleimage_set.all %}
+          <img {% if forloop.first %}class="shown"{% endif %} src="{{image.get_image}}" alt="">
+        {% endfor %}
+      </div>
+      <div class="tabs">
+        <button class="prev"><i class="fas fa-angle-left"></i></button>
+        <button class="next"><i class="fas fa-angle-right"></i></button>
+      </div>
+    </div>
   </div>
   <button class="modal-close is-large" onclick="hide_modal(this);"></button>
 </div>
 {% endblock context %}
+{% block jsconnect %}
+<script src="{% static "articles/js/carusel.js" %}"></script>
+{% endblock jsconnect %}

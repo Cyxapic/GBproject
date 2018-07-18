@@ -1,0 +1,12 @@
+{% extends "layer/base.html" %}
+{% load static %}
+{% block title %}Записка об {{ article.title }}{% endblock title %}
+{% block cssconnect %}
+<link rel="stylesheet" href="{% static "articles/css/style.css" %}">
+{% endblock cssconnect %}
+{% block context %}
+<form method="post">{% csrf_token %}
+    <p>Грохаем статейку - "{{ object }}"?</p>
+    <button type="submit" class="button is-danger">А давай!</button>
+</form>
+{% endblock context %}

@@ -1,7 +1,13 @@
-from django.views.generic import ListView, DetailView
+from django.urls import reverse
+from django.views import View
+from django.views.generic import (ListView, DetailView, FormView,
+                                  UpdateView, DeleteView)
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import Http404
 
-from .models import Category, Article
+from .models import Category, Article, ArticleImage
+from .forms import ArticleAddForm, ArticleForm, ArticleImageForm
 
 
 class AllCategoriesView(ListView):
@@ -41,3 +47,56 @@ class ArticleView(DetailView):
         if not query.exists():
             raise Http404
         return query
+
+
+class ArticleAdd(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    '''Добавляем сатью'''
+    template_name = 'articles/add.html'
+    form_class = ArticleAddForm
+
+    def form_valid(self, form):
+        self.save_article(form)
+        messages.success(self.request, 'Запись сохранена!')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('article_add')
+
+    def save_article(self, form):
+        article = form.cleaned_data.copy()
+        article.pop('image')
+        article = Article.objects.create(**article)
+        for file in self.request.FILES.getlist('image'):
+            print(file)
+            image_form = ArticleImageForm(files={'image': file})
+            if image_form.is_valid():
+                image = image_form.save(commit=False)
+                image.article = article
+                image.save()
+            else:
+                # need log
+                continue
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    template_name = 'articles/add.html'
+    model = Article
+    form_class = ArticleForm
+    
+    def get_success_url(self):
+        return reverse('article_item', kwargs={"pk":self.object.pk})
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class ArticleDel(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    '''Удалить запись'''
+    model = Article
+    success_url='/'
+
+    def test_func(self):
+        return self.request.user.is_superuser

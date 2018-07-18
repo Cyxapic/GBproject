@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.conf import settings
 
-from .models import Category, Article
+from .models import Category, Article, ArticleImage
 
 
 admin.site.register(Category)
+admin.site.register(ArticleImage)
 
 
 class ExtendedAdmin(admin.ModelAdmin):
@@ -18,7 +19,7 @@ class ExtendedAdmin(admin.ModelAdmin):
 @admin.register(Article)
 class ArticleAdmin(ExtendedAdmin):
     date_hierarchy = 'created'
-    list_display = ('title', 'created', 'is_published')
+    list_display = ('title', 'created', 'is_published', 'updated')
 
     class Meta:
         wysiwyg_fields = ('text',)

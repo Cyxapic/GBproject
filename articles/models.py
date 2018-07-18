@@ -26,17 +26,27 @@ class Category(models.Model):
 class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=60)
-    image = models.ImageField(upload_to='articles/', blank=True, null=True)
-    thumbnail = models.ImageField(
-            upload_to='articles/thumbnails',
-            blank=True,
-            null=True)
     text = models.TextField()
     is_published = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
+        ordering = ('-created',)
+
+
+class ArticleImage(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='articles/', blank=True, null=True)
+    thumbnail = models.ImageField(
+            upload_to='articles/thumbnails',
+            blank=True,
+            null=True)
 
     @property
     def get_image(self):
@@ -59,8 +69,3 @@ class Article(models.Model):
             img.save(thumb_path, 'JPEG', quality=80)
             self.thumbnail = name
             super().save(**kwargs)
-
-    class Meta:
-        verbose_name = 'Статья'
-        verbose_name_plural = 'Статьи'
-        ordering = ('-created',)

@@ -6,29 +6,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Cyxapic">
     <title>{% block title %}Здоров!{% endblock title %}</title>
-    {% block cssconnect %}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static "index/css/style.css" %}">
-    {% endblock cssconnect %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "index/css/style.css" %}">
+{% block cssconnect %}{% endblock cssconnect %}
 </head>
 <body>
-    <div class="mob-btn-wraper">
-        <a class="mob-btn tick"></a>
-    </div>
-    <div class="container">
-        <div class="colums content">
-            <div id="main-menu" class="column is-one-fifth">
-                {% include "layer/menu.html" %}
-            </div>
-            <div class="column">
-                {% block context %}
-                {% endblock context %}
-            </div>
+<div class="mob-btn-wraper">
+    <a class="mob-btn tick"></a>
+</div>
+<div class="container">
+    <div class="colums content">
+        <div id="main-menu" class="column is-one-fifth">
+            {% include "layer/menu.html" %}
+        </div>
+        <div class="column">
+            {% block context %}
+            {% endblock context %}
         </div>
     </div>
-    {% block jsconnect %}
-        <script src="{% static "index/js/main.js" %}"></script>
-    {% endblock jsconnect %}
+</div>
+<script src="{% static "index/js/main.js" %}"></script>
+{% block jsconnect %}{% endblock jsconnect %}
 </body>
 </html>
