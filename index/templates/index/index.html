@@ -12,7 +12,7 @@
                 <a href="{% url 'article_item' article.pk %}">
                     <div class="card-image">
                         <figure class="image is-3by3">
-                            <img src="{{article.articleimage_set.last.get_thumbnail}}" alt="Картинка к записи">
+                            <img src="{{article.articleimage_set.last.thumbnail.url}}" alt="Картинки нет!">
                         </figure>
                     </div>
                     <div class="card-content">

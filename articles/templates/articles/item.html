@@ -9,8 +9,8 @@
   <article class="media">
     <div class="media-left">
       <figure class="image is-64x64">
-        <a onclick="show_modal();">
-          <img src="{{article.articleimage_set.last.get_thumbnail}}" alt="Image">
+        <a onclick="show_modal('#image-modal');">
+          <img src="{{article.articleimage_set.last.thumbnail.url}}" alt="Картинки нет!">
         </a>
       </figure>
     </div>
@@ -59,13 +59,13 @@
     </div>
   </article>
 </div>
-<div class="modal">
+<div id="image-modal" class="modal">
   <div class="modal-background"></div>
   <div class="modal-content">
     <div class="gallery gallery-1">
       <div class="photo">
         {% for image in article.articleimage_set.all %}
-          <img {% if forloop.first %}class="shown"{% endif %} src="{{image.get_image}}" alt="">
+          <img {% if forloop.first %}class="shown"{% endif %} src="{{image.image.url}}" alt="">
         {% endfor %}
       </div>
       <div class="tabs">
@@ -74,7 +74,7 @@
       </div>
     </div>
   </div>
-  <button class="modal-close is-large" onclick="hide_modal(this);"></button>
+  <button class="modal-close is-large" onclick="hide_modal('#image-modal');"></button>
 </div>
 {% endblock context %}
 {% block jsconnect %}

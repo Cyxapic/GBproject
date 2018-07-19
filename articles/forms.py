@@ -4,8 +4,13 @@ from .models import Category, Article, ArticleImage
 
 
 class ArticleAddForm(forms.Form):
-    category = forms.ModelChoiceField(queryset=Category.objects.all())
-    title = forms.CharField(widget=forms.TextInput(attrs={"class": "input"}))
+    category = forms.ModelChoiceField(
+            queryset=Category.objects.all(),
+            empty_label='Категория')
+    title = forms.CharField(
+            widget=forms.TextInput(
+                attrs={"class": "input",
+                       "placeholder": "Название записи..."}))
     text = forms.CharField(widget=forms.Textarea())
     is_published = forms.BooleanField(required=False)
     image = forms.ImageField(

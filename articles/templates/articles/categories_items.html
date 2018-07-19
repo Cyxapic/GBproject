@@ -2,9 +2,7 @@
 {% block context %}
     <h1 class="title has-text-centered">Записи в категории "{{category}}".</h1>
     <p class="subtitle has-text-centered">
-        <strong>
-        <a href="{% url 'categories' %}">Посмотреть все категории записей</a>
-        </strong>
+        <a href="{% url 'categories' %}"><strong>Посмотреть все категории записей</strong></a>
     </p>
     <div class="columns is-multiline is-centered has-text-centered">
         {% for article in articles %}
@@ -12,7 +10,7 @@
                 <a href="{% url 'article_item' article.pk %}">
                     <div class="card-image">
                         <figure class="image is-3by3">
-                            <img src="{{article.articleimage_set.last.get_thumbnail}}" alt="Картинка к записи">
+                            <img src="{{article.articleimage_set.last.image.url}}" alt="Картинки нет!">
                         </figure>
                     </div>
                     <div class="card-content">

@@ -10,22 +10,43 @@
   <p class="menu-label">
     Чекинешная
   </p>
-  <ul class="menu-list">
-    {% if user.is_authenticated %}
-      <li><a>Бро {{user.username}}</a></li>
-      <li><a href="/logout">Давай, бро!</a></li>
-    {% else %}
-      <li><a href="/login">Заходи, бро!</a></li>
-      <li><a href="/register">Стать бро!</a></li>
-    {% endif %}
-  </ul>
+  {% if user.is_authenticated %}
+    <a>
+      <div class="card bro-card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img src="{{user.get_avatar}}" alt="Avatar">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4">Бро</p>
+              <p class="subtitle is-6">{{user.username}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <ul class="menu-list">
+      <li><a href="{% url 'logout' %}">Давай, бро!</a></li>
+    </ul>
+  {% else %}
+    <ul class="menu-list">
+      <li><a href="{% url 'login' %}">Заходи, бро!</a></li>
+      <li><a href="{% url 'register' %}">Стать бро!</a></li>
+    </ul>
+  {% endif %}
+  
   {% if user.is_staff %}
     <p class="menu-label">
       Админские штучки
     </p>
     <ul class="menu-list">
-      <li><a href="/admin">Только я могу!</a></li>
       <li><a href="{% url 'article_add' %}">Создать записку</a></li>
+      {% if user.is_superuser %}
+        <li><a href="/admin">Только я могу!</a></li>
+      {% endif %}
     </ul>
   {% endif %}
 </aside>

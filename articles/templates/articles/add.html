@@ -13,7 +13,7 @@
     {% csrf_token %}
     <div class="select">
       {{form.category}}
-    </div>
+    </div><button class="button" type="button"><i class="far fa-plus-square"></i></button>
     <div class="mt-form field">
       <p class="control has-icons-left has-icons-right">
         {{form.title}}
@@ -67,7 +67,7 @@
     {% endfor %}
   </section>
   <footer class="modal-card-foot">
-    <button class="button" onclick="msg_modal('#msg');">Закрыть</button>
+    <button class="button" onclick="hide_modal('#msg');">Закрыть</button>
   </footer>
 </div>
 </div>

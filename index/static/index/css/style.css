@@ -161,6 +161,10 @@ html, body {
   color:#dbd2d2;
   text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
 }
+.bro-card{border-radius: 15px;}
+.bro-card:hover{background-color: #f5f5f5;}
+.content figure{margin-left: 0px;}
+
 @media (max-width: 1200px) {
     #main-menu{display: none;}
     .mob-btn-wraper{display: block;}
