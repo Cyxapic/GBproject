@@ -43,13 +43,18 @@
         {{form.image.errors}}
       </div>
     {% endif %}
-    
-    <div class="mt-form field">
-      <p class="control has-icons-left has-icons-right">
-        <label>Опубликовать
-          {{form.is_published}}
-        </label>
-      </p>
+    <div class="mt-form field columns is-3">
+      <div class="message">
+        <div class="message-header">
+          <p>Опубликовать</p>
+        </div>
+        <div class="message-body">
+          <div class="check">
+            {{form.is_published}}
+            <label for="id_is_published"></label>
+          </div>
+        </div>
+      </div>
     </div>
     <button type="submit" class="button is-primary">Сохранить</button>
   </form>

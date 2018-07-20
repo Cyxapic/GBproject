@@ -57,3 +57,23 @@
     text-align: center;
     padding-top: 20px;
 }
+#id_is_published {
+  display: none;
+}
+#id_is_published + label {
+  font-size: 3.2rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .1s all;
+  cursor: pointer;
+  z-index: 999 !important;
+}
+#id_is_published + label:after {
+  content: "😕";
+}
+#id_is_published:checked + label:after {
+  content: "😎";
+}
