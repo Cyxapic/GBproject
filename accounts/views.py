@@ -4,15 +4,16 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView
 
 from .forms import LoginForm, RegForm
+from .mixins import RedirectAuthenticatedUserMixin
 
 
-class GBLoginView(LoginView):
+class GBLoginView(RedirectAuthenticatedUserMixin, LoginView):
     '''Переопределить форму входа'''
     template_name = "accounts/login.html"
     form_class = LoginForm
 
 
-class RegView(CreateView):
+class RegView(RedirectAuthenticatedUserMixin, CreateView):
     template_name = 'accounts/reg.html'
     form_class = RegForm
     success_url = '/accounts/login/'
