@@ -7,21 +7,14 @@
 {% block context %}
 <div class="box">
   <article class="media">
-    <div class="media-left">
-      <figure class="image is-64x64">
-        <a onclick="show_modal('#image-modal');">
-          <img src="{{article.articleimage_set.last.thumbnail.url}}" alt="Картинки нет!">
-        </a>
-      </figure>
-    </div>
     <div class="media-content">
       <div class="columns">
         <div class="column">
           <div class="columns">
-            <div class="column">
+            <div class="column has-text-centered">
               <strong class="title">{{ article.title }}.</strong>
               <br>
-              <small>Записка от: <strong>{{ article.created | date:'F Y' }}</strong></small>
+              <small>Записка от: <strong>{{ article.created | date:'d F Y' }}</strong></small>
             </div>
           </div>
           <div class="columns">
@@ -77,6 +70,3 @@
   <button class="modal-close is-large" onclick="hide_modal('#image-modal');"></button>
 </div>
 {% endblock context %}
-{% block jsconnect %}
-<script src="{% static "articles/js/carusel.js" %}"></script>
-{% endblock jsconnect %}
