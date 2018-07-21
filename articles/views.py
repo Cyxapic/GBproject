@@ -26,8 +26,10 @@ class CategoriesItems(ListView):
 
     def get_queryset(self, **kwargs):
         cat_pk = self.kwargs.get('cat_pk')
-        query = Article.objects.filter(is_published=True, category__pk=cat_pk)
-        return query
+        param = {"is_published": True, "category__pk":cat_pk}
+        if self.request.user.is_superuser:
+            param = {"category__pk":cat_pk}
+        return Article.objects.filter(**param)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,7 +45,10 @@ class ArticleView(DetailView):
 
     def get_queryset(self, **kwargs):
         pk = self.kwargs.get('pk')
-        query = Article.objects.filter(is_published=True, pk=pk)
+        param = {"is_published": True, "pk":pk}
+        if self.request.user.is_superuser:
+            param = {"pk":pk}
+        query = Article.objects.filter(**param)
         if not query.exists():
             raise Http404
         return query
