@@ -1,9 +1,11 @@
-from django.views.generic.edit import FormView
-from django.views.generic import CreateView
+from django.views.generic import (CreateView, UpdateView,
+                                 DetailView, TemplateView)
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .forms import LoginForm, RegForm
+from .forms import LoginForm, RegForm, EditForm
 from .mixins import RedirectAuthenticatedUserMixin
 
 
@@ -25,3 +27,23 @@ class RegView(RedirectAuthenticatedUserMixin, CreateView):
                             Спасибо за чекин!
                             Теперь можно читать всякие буквы тут по свойски!''')
         return super().form_valid(form)
+
+
+class AccountView(LoginRequiredMixin, TemplateView):
+    template_name = 'accounts/account.html'
+
+
+class EditView(LoginRequiredMixin, UpdateView):
+    template_name = 'accounts/edit.html'
+    model = get_user_model()
+    form_class = EditForm
+    success_url = '/accounts/'
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, 
+                         '''Ну вот и все твои данные в сбербанке!''')
+        return super().form_valid(form)
+
+    def get_object(self, queryset=None):
+        return self.request.user

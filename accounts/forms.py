@@ -35,16 +35,6 @@ class RegForm(forms.ModelForm):
         strip=False,
     )
 
-    class Meta:
-        model = get_user_model()
-        fields = ('username', 'password1',)
-        widgets = {'username': forms.TextInput(
-                                    attrs={'autofocus': True,
-                                           'class': 'input',
-                                           'placeholder': 'Кликуха'}),
-        }
-        labels = { 'username': 'Кликуха' }
-
     def clean_password1(self):
         password1 = self.cleaned_data.get("password1")
         password2 = self.data.get("password2")
@@ -58,3 +48,34 @@ class RegForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password1',)
+        widgets = {
+            'username': forms.TextInput(attrs={'autofocus': True,
+                                               'class': 'input',
+                                               'placeholder': 'Кликуха'}),
+        }
+        labels = {
+            'username': 'Кликуха'
+        }
+
+
+class EditForm(forms.ModelForm):
+    """Регистрация нового пользователя"""
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'last_name', 'first_name', 'birthday', 'avatar')
+        widgets = {
+            'email': forms.EmailInput(attrs={'autofocus': True,
+                                               'class': 'input',
+                                               'placeholder': 'Е-МЫЛО'}),
+            'last_name': forms.TextInput(attrs={'class': 'input',
+                                                'placeholder': 'По паспорту'}),
+            'first_name': forms.TextInput(attrs={'class': 'input',
+                                                'placeholder': 'Как в паспорте'}),
+            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'input',
+                                               }),
+            'avatar': forms.FileInput(attrs={'class': 'file-input',})
+        }
