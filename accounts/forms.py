@@ -35,6 +35,16 @@ class RegForm(forms.ModelForm):
         strip=False,
     )
 
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password1',)
+        widgets = {'username': forms.TextInput(
+                                    attrs={'autofocus': True,
+                                           'class': 'input',
+                                           'placeholder': 'Кликуха'}),
+        }
+        labels = { 'username': 'Кликуха' }
+
     def clean_password1(self):
         password1 = self.cleaned_data.get("password1")
         password2 = self.data.get("password2")
@@ -48,15 +58,3 @@ class RegForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-    class Meta:
-        model = get_user_model()
-        fields = ('username', 'password1',)
-        widgets = {
-            'username': forms.TextInput(attrs={'autofocus': True,
-                                               'class': 'input',
-                                               'placeholder': 'Кликуха'}),
-        }
-        labels = {
-            'username': 'Кликуха'
-        }

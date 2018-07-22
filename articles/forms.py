@@ -3,7 +3,7 @@ from django import forms
 from .models import Category, Article, ArticleImage
 
 
-class ArticleAddForm(forms.Form):
+class ArticleForm(forms.ModelForm):
     category = forms.ModelChoiceField(
             queryset=Category.objects.all(),
             empty_label='Категория')
@@ -13,25 +13,28 @@ class ArticleAddForm(forms.Form):
                        "placeholder": "Название записи..."}))
     text = forms.CharField(widget=forms.Textarea())
     is_published = forms.BooleanField(required=False)
-    image = forms.ImageField(
-        widget=forms.ClearableFileInput(
-                attrs={'multiple': True, "class":"file-input"}
-            )
-        )
-
-
-class ArticleImageForm(forms.ModelForm):
-    class Meta:
-        model = ArticleImage
-        fields = ('image',)
-
-
-class ArticleForm(forms.ModelForm):
-    category = forms.ModelChoiceField(queryset=Category.objects.all())
-    title = forms.CharField(widget=forms.TextInput(attrs={"class": "input"}))
-    text = forms.CharField(widget=forms.Textarea())
-    is_published = forms.BooleanField(required=False)
 
     class Meta:
         model = Article
         fields = ('category', 'title', 'text', 'is_published',)
+
+
+class ArticleImageForm(forms.ModelForm):
+    def __init__(self, **kwargs):
+        self.article = kwargs.pop('article', None)
+        super().__init__(**kwargs)
+
+    class Meta:
+        model = ArticleImage
+        fields = ('image', 'is_title')
+        widgets = {
+            'image': forms.ClearableFileInput(attrs={"class":"file-input"})
+        }
+
+    def save(self, commit=True):
+        article = Article.objects.get(pk=self.article)
+        image = super().save(commit=False)
+        image.article = article
+        if commit:
+            image.save()
+        return image

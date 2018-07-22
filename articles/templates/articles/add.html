@@ -26,27 +26,13 @@
         {{form.text}}
       </p>
     </div>
-    {% if 'add' in request.path %}
+    {% if 'edit' in request.path %}
       <div class="file">
-        <label class="file-label">
-          {{form.image}}
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="fas fa-upload"></i>
-            </span>
-            <span class="file-label">
-              Выбери картинки…
-            </span>
-          </span>
-        </label>
-        {{form.image.errors}}
+        <button type="button" class="button is-info" onclick="show_modal('#flits');">Посмотреть загруженые файлы.</button>
       </div>
-      <ul id="flits">
-          <li><b>Список файлов к статье:</b></li>
-        </ul>
     {% endif %}
-    <div class="mt-form field columns is-3">
-      <div class="message">
+    <div class="mt-form columns">
+      <div class="column is-2 message">
         <div class="message-header">
           <p>Опубликовать</p>
         </div>
@@ -55,6 +41,18 @@
             {{form.is_published}}
             <label for="id_is_published"></label>
           </div>
+        </div>
+      </div>
+      <div class="ml-msg column is-5 message is-info">
+        <div class="message-header">
+          <p>По вопросу картинок для записки</p>
+        </div>
+        <div class="message-body">
+          Сначала сохраняем статью.
+          При необходимости добавить картинки - переходим в редактирование и
+          выбираем/загружаем картики к статье!
+          Добавляем пути в выборе файла!
+          Вот такие заморочки :D
         </div>
       </div>
     </div>
@@ -78,7 +76,37 @@
   </footer>
 </div>
 </div>
+{# Модалка для показа путей изображений для статьи #}
+{% if 'edit' in request.path %}
+<div id="flits" class="modal">
+  <div class="modal-background"></div>
+  <div class=" mt-modal modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Сохранение записи</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <ul>
+        {% for img in images %}
+          <li>
+            {{img.image.url}}
+          </li>
+          {% empty %}
+          <div class="message is-info">
+            <div class="message-body">
+              Изображений нет!
+            </div>
+          </div>
+        {% endfor %}
+      </ul>
+    </section>
+    <footer class="modal-card-foot">
+      <a href="{% url 'article_image' article.pk %}" class="button">Загрузить картинку</a>
+      <button class="button" onclick="hide_modal('#flits');">Закрыть</button>
+    </footer>
+  </div>
+{% endif %}
 {% endblock context %}
 {% block jsconnect %}
-<script src="{% static "articles/js/article.js" %}"></script>
+<script src="{% static "articles/js/initckedit.js" %}"></script>
 {% endblock jsconnect %}

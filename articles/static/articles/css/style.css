@@ -1,5 +1,6 @@
 .mt-form{margin-top: 25px;}
 .mt-modal{margin-top: 100px;}
+.ml-msg{margin-left: 25px;}
 .category-card {
   margin-left: 5px;
   margin-right: 5px;
@@ -34,35 +35,16 @@
 }
 .category-card:hover .front {transform: rotateY(180deg);}
 .category-card:hover .back {transform: rotateY(360deg);}
-.gallery{
-    width: 400px;
-    text-align: center;
-    margin: 0 auto; 
-}
-.photo{
-    position: relative;
-    height: 300px;
-}
-.photo img{
-    width: 100%;
-    position: absolute;
-    opacity: 0;
-    left: 0;
-    transition: opacity 1s;
-}
-.photo img.shown{
-     opacity: 1;
-}
-.tabs{
-    text-align: center;
-    padding-top: 20px;
+.check{
+  padding: 15px;
+  border: 1px solid #000;
+  border-radius: 15px;
 }
 #id_is_published {
   display: none;
 }
 #id_is_published + label {
   font-size: 3.2rem;
-  width: 4rem;
   height: 4rem;
   display: flex;
   justify-content: center;

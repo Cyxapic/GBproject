@@ -1,13 +1,13 @@
 from django.urls import reverse
 from django.views import View
-from django.views.generic import (ListView, DetailView, FormView,
+from django.views.generic import (ListView, DetailView, CreateView,
                                   UpdateView, DeleteView)
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import Http404
 
 from .models import Category, Article, ArticleImage
-from .forms import ArticleAddForm, ArticleForm, ArticleImageForm
+from .forms import ArticleForm, ArticleImageForm
 
 
 class AllCategoriesView(ListView):
@@ -54,33 +54,40 @@ class ArticleView(DetailView):
         return query
 
 
-class ArticleAdd(LoginRequiredMixin, UserPassesTestMixin, FormView):
+class ArticleAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     '''Добавляем сатью'''
     template_name = 'articles/add.html'
-    form_class = ArticleAddForm
+    form_class = ArticleForm
 
     def form_valid(self, form):
-        self.save_article(form)
+        form.save()
         messages.success(self.request, 'Запись сохранена!')
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('article_add')
 
-    def save_article(self, form):
-        article = form.cleaned_data.copy()
-        article.pop('image')
-        article = Article.objects.create(**article)
-        for file in self.request.FILES.getlist('image'):
-            print(file)
-            image_form = ArticleImageForm(files={'image': file})
-            if image_form.is_valid():
-                image = image_form.save(commit=False)
-                image.article = article
-                image.save()
-            else:
-                # need log
-                continue
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class ArticleImageAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    '''Добавляем изображения к статье'''
+    template_name = 'articles/add_image.html'
+    form_class = ArticleImageForm
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, 'Запись сохранена!')
+        return super().form_valid(form)
+
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super().get_form_kwargs()
+        kwargs['article'] = self.kwargs.get('pk')
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('article_image', kwargs={'pk':self.kwargs.get('pk')})
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -93,6 +100,11 @@ class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     def get_success_url(self):
         return reverse('article_item', kwargs={"pk":self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['images'] = ArticleImage.objects.filter(article__pk=self.object.pk)
+        return context
 
     def test_func(self):
         return self.request.user.is_superuser

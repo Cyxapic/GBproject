@@ -1,6 +1,6 @@
-function show_modal(id) {
-    document.querySelector(id).style.display = "block";
+function show_modal(selector) {
+    document.querySelector(selector).style.display = "block";
 }
-function hide_modal(id){
-    document.querySelector(id).style.display = "none";
+function hide_modal(selector){
+    document.querySelector(selector).style.display = "none";
 }

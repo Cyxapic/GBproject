@@ -48,18 +48,13 @@ html, body {
     box-shadow: 3px 1px 2px 3px #47b11d;
     color: #000000;
 }
-.article-item a {display: block;}
-.article-item h2{
-    font-size: 1.4em;
-}
+.article-item a {display: block; height: 100%;}
+.article-item h2{font-size: 1.4em;}
 .learn-more {display: block; position: absolute; bottom: 10px; color: #3273dc;}
 .learn-more :hover{color: #000;}
 .content small {display: inline-block; margin-left: 10px;}
 .modal-content{margin-top: 100px;}
-
-.main-menu{
-    line-height: 1.25;
-}
+.main-menu{line-height: 1.25;}
 .main-menu li{
     list-style-type: none;
     position: relative;

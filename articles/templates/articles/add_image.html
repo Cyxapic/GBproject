@@ -1,0 +1,52 @@
+{% extends "layer/base.html" %}
+{% load static %}
+{% block title %}Добавляем записку!{% endblock title %}
+{% block cssconnect %}
+<link rel="stylesheet" href="{% static "articles/css/style.css" %}">
+{% endblock cssconnect %}
+{% block context %}
+<div class="box">
+  {{form.errors.non_field_errors}}
+  <form action="." method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="file-label">
+      {{form.image}}
+      <span class="file-cta">
+        <span class="file-icon">
+          <i class="fas fa-upload"></i>
+        </span>
+        <span class="file-label">
+          Выбери картинки…
+        </span>
+      </span>
+    </label>
+    <div class="field">
+      <p class="control has-icons-left has-icons-right">
+        Это титульная картинка?
+        {{form.is_title}}
+      </p>
+    </div>
+    <button type="submit" class="button is-primary">Сохранить</button>
+  </form>
+</div>
+{# модалка для сообщения об успешном сохранении #}
+<div class="modal" {% if messages %}style='display:block;'{% endif %} id="msg">
+<div class="modal-background"></div>
+<div class=" mt-modal modal-card">
+  <header class="modal-card-head">
+    <p class="modal-card-title">Сохранение записи</p>
+    <button class="delete" aria-label="close"></button>
+  </header>
+  <section class="modal-card-body">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </section>
+  <footer class="modal-card-foot">
+    <button class="button" onclick="hide_modal('#msg');">Закрыть</button>
+  </footer>
+</div>
+{% endblock context %}
+{% block jsconnect %}
+<script src="{% static "articles/js/images.js" %}"></script>
+{% endblock jsconnect %}

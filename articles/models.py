@@ -46,6 +46,7 @@ class ArticleImage(models.Model):
     '''Картинки к статьям'''
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='articles/', blank=True, null=True)
+    is_title = models.BooleanField(default=False)
     thumbnail = models.ImageField(
             upload_to='articles/thumbnails/',
             blank=True,
@@ -53,7 +54,7 @@ class ArticleImage(models.Model):
 
     def save(self, **kwargs):
         super().save(**kwargs)
-        if self.image:
+        if self.image and self.is_title:
             SIZE = (128, 128)
             img = Image.open(self.image.path)
             path = os.path.join(settings.MEDIA_ROOT, 'articles', 'thumbnails')
