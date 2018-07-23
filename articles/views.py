@@ -65,7 +65,7 @@ class ArticleAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('article_add')
+        return reverse('article_edit', kwargs={'pk': self.object.pk})
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -87,7 +87,19 @@ class ArticleImageAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('article_image', kwargs={'pk':self.kwargs.get('pk')})
+        return reverse('article_edit', kwargs={'pk':self.kwargs.get('pk')})
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class ArticleImageDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    '''Добавляем изображения к статье'''
+    model = ArticleImage
+
+    def get_success_url(self):
+        article = self.request.POST.get('article')
+        return reverse('article_edit', kwargs={'pk':article})
 
     def test_func(self):
         return self.request.user.is_superuser

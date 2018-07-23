@@ -80,31 +80,48 @@
 {% if 'edit' in request.path %}
 <div id="flits" class="modal">
   <div class="modal-background"></div>
-  <div class=" mt-modal modal-card">
+  <div class="mt-modal modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Сохранение записи</p>
       <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      <ul>
-        {% for img in images %}
-          <li>
-            {{img.image.url}}
-          </li>
-          {% empty %}
-          <div class="message is-info">
-            <div class="message-body">
-              Изображений нет!
+      {% for img in images %}
+        <div class="box {% if img.is_title %}is-title{% endif %}">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img src="{{img.image.url}}" alt="Картинки нет!">
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                {{img.image.url}}
+                <form action="{% url 'article_img_del' img.pk %}" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="article" value="{{article.pk}}">
+                  <button class="button"></button>
+                </form>
+              </p>
             </div>
           </div>
-        {% endfor %}
-      </ul>
-    </section>
-    <footer class="modal-card-foot">
-      <a href="{% url 'article_image' article.pk %}" class="button">Загрузить картинку</a>
-      <button class="button" onclick="hide_modal('#flits');">Закрыть</button>
-    </footer>
-  </div>
+        </article>
+      </div>
+      {% empty %}
+      <div class="message is-info">
+        <div class="message-body">
+          Изображений нет!
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+  <footer class="modal-card-foot">
+    <a href="{% url 'article_image' article.pk %}" class="button">Загрузить картинку</a>
+    <button class="button" onclick="hide_modal('#flits');">Закрыть</button>
+    <span>Выделенное отображается на карточке!</span>
+  </footer>
+</div>
 {% endif %}
 {% endblock context %}
 {% block jsconnect %}

@@ -57,9 +57,7 @@ class RegForm(forms.ModelForm):
                                                'class': 'input',
                                                'placeholder': 'Кликуха'}),
         }
-        labels = {
-            'username': 'Кликуха'
-        }
+        labels = { 'username': 'Кликуха' }
 
 
 class EditForm(forms.ModelForm):
@@ -76,6 +74,6 @@ class EditForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'input',
                                                 'placeholder': 'Как в паспорте'}),
             'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'input',
-                                               }),
+                                               },format = '%Y-%m-%d'),
             'avatar': forms.FileInput(attrs={'class': 'file-input',})
         }

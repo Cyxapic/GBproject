@@ -28,7 +28,8 @@ class ArticleImageForm(forms.ModelForm):
         model = ArticleImage
         fields = ('image', 'is_title')
         widgets = {
-            'image': forms.ClearableFileInput(attrs={"class":"file-input"})
+            'image': forms.ClearableFileInput(attrs={"class":"file-input"}),
+            'is_title': forms.CheckboxInput(attrs={"class":"titul-img"})
         }
 
     def save(self, commit=True):
