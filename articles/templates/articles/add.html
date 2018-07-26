@@ -83,6 +83,7 @@
     <p class="modal-card-title">Добавление категории</p>
   </header>
   <section class="modal-card-body">
+    <div id="cat-msg"></div>
     <form id="category-add-form" data-url="{% url 'category_add' %}">
       <div class="mt-form field">
         <p class="control has-icons-left has-icons-right">
@@ -107,4 +108,5 @@
 {% endblock context %}
 {% block jsconnect %}
 <script src="{% static "articles/js/initckedit.js" %}"></script>
+<script src="{% static "articles/js/article.js" %}"></script>
 {% endblock jsconnect %}

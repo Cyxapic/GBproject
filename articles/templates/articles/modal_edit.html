@@ -11,13 +11,13 @@
         <article class="media">
           <div class="media-left">
             <figure class="image is-48x48">
-              <img src="{{img.image.url}}" alt="Картинки нет!">
+              <img src="{{img.get_image}}" alt="Картинки нет!">
             </figure>
           </div>
           <div class="media-content">
             <div class="content">
               <p>
-                {{img.image.url}}
+                {{img.get_image}}
                 <form action="{% url 'article_img_del' img.pk %}" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="article" value="{{article.pk}}">
@@ -41,4 +41,5 @@
     <button class="button" onclick="hide_modal('#flits');">Закрыть</button>
     <span>Выделенное отображается на карточке!</span>
   </footer>
+</div>
 </div>

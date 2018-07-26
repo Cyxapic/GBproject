@@ -52,6 +52,10 @@ class ArticleImage(models.Model):
             blank=True,
             null=True)
 
+    @property
+    def get_image(self):
+        return self.image.url if self.image else ''
+
     def save(self, **kwargs):
         super().save(**kwargs)
         if self.image and self.is_title:

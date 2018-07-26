@@ -1,3 +1,5 @@
+import json
+
 from django.urls import reverse
 from django.views import View
 from django.views.generic import (ListView, DetailView, CreateView,
@@ -15,7 +17,7 @@ class AllCategoriesView(ListView):
     template_name = 'articles/index.html'
     model = Category
     context_object_name = 'categories'
-    paginate_by = 9
+    paginate_by = 8
 
 
 class CategoriesItems(ListView):
@@ -134,10 +136,11 @@ class ArticleDel(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def category_add(request):
     resp = {'error': None}
     if request.method == "POST":
-        form = CategoryAddForm(request.POST)
+        data = json.loads(request.body)
+        form = CategoryAddForm(data)
         if form.is_valid():
             cat = form.save()
             resp.update({'pk': cat.pk, 'name': cat.name})
         else:
-            resp["error"] = form.errors.as_json()
+            resp["error"] = "Ошибка создания категории!"
     return JsonResponse(resp)
