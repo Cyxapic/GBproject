@@ -4,10 +4,10 @@ from django.views.generic import (ListView, DetailView, CreateView,
                                   UpdateView, DeleteView)
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import Http404
+from django.http import Http404, JsonResponse
 
 from .models import Category, Article, ArticleImage
-from .forms import ArticleForm, ArticleImageForm
+from .forms import CategoryAddForm, ArticleForm, ArticleImageForm
 
 
 class AllCategoriesView(ListView):
@@ -129,3 +129,15 @@ class ArticleDel(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.request.user.is_superuser
+
+
+def category_add(request):
+    resp = {'error': None}
+    if request.method == "POST":
+        form = CategoryAddForm(request.POST)
+        if form.is_valid():
+            cat = form.save()
+            resp.update({'pk': cat.pk, 'name': cat.name})
+        else:
+            resp["error"] = form.errors.as_json()
+    return JsonResponse(resp)

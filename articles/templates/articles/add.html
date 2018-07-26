@@ -12,7 +12,7 @@
     {% csrf_token %}
     <div class="select">
       {{form.category}}
-    </div><button class="button" type="button"><i class="far fa-plus-square"></i></button>
+    </div><button class="button" type="button" onclick="show_modal('#category-add');"><i class="far fa-plus-square"></i></button>
     <div class="mt-form field">
       <p class="control has-icons-left has-icons-right">
         {{form.title}}
@@ -64,7 +64,6 @@
 <div class=" mt-modal modal-card">
   <header class="modal-card-head">
     <p class="modal-card-title">Сохранение записи</p>
-    <button class="delete" aria-label="close"></button>
   </header>
   <section class="modal-card-body">
     {% for message in messages %}
@@ -76,52 +75,34 @@
   </footer>
 </div>
 </div>
-{# Модалка для показа путей изображений для статьи #}
-{% if 'edit' in request.path %}
-<div id="flits" class="modal">
-  <div class="modal-background"></div>
-  <div class="mt-modal modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Сохранение записи</p>
-      <button class="delete" aria-label="close"></button>
-    </header>
-    <section class="modal-card-body">
-      {% for img in images %}
-        <div class="box {% if img.is_title %}is-title{% endif %}">
-        <article class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img src="{{img.image.url}}" alt="Картинки нет!">
-            </figure>
-          </div>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                {{img.image.url}}
-                <form action="{% url 'article_img_del' img.pk %}" method="POST">
-                  {% csrf_token %}
-                  <input type="hidden" name="article" value="{{article.pk}}">
-                  <button class="button"></button>
-                </form>
-              </p>
-            </div>
-          </div>
-        </article>
+{# Модалка для для добавления категории#}
+<div id="category-add" class="modal">
+<div class="modal-background"></div>
+<div class=" mt-modal modal-card">
+  <header class="modal-card-head">
+    <p class="modal-card-title">Добавление категории</p>
+  </header>
+  <section class="modal-card-body">
+    <form id="category-add-form" data-url="{% url 'category_add' %}">
+      <div class="mt-form field">
+        <p class="control has-icons-left has-icons-right">
+          <input type="text" name="name" class="input" placeholder="Наименование категории">
+        </p>
+        <p class="control has-icons-left has-icons-right">
+          <textarea class="textarea" name="description" cols="30" rows="10" placeholder="Описание категории"></textarea>
+        </p>
       </div>
-      {% empty %}
-      <div class="message is-info">
-        <div class="message-body">
-          Изображений нет!
-        </div>
-      </div>
-    {% endfor %}
+    </form>
+    <button id="save" class="mt-form button is-primary">Добавить</button>
   </section>
   <footer class="modal-card-foot">
-    <a href="{% url 'article_image' article.pk %}" class="button">Загрузить картинку</a>
-    <button class="button" onclick="hide_modal('#flits');">Закрыть</button>
-    <span>Выделенное отображается на карточке!</span>
+    <button class="button" onclick="hide_modal('#category-add');">Закрыть</button>
   </footer>
 </div>
+</div>
+{# Модалка для показа путей изображений для статьи #}
+{% if 'edit' in request.path %}
+{% include "articles/modal_edit.html" %}
 {% endif %}
 {% endblock context %}
 {% block jsconnect %}

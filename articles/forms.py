@@ -3,6 +3,12 @@ from django import forms
 from .models import Category, Article, ArticleImage
 
 
+class CategoryAddForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('__all__')
+
+
 class ArticleForm(forms.ModelForm):
     category = forms.ModelChoiceField(
             queryset=Category.objects.all(),
