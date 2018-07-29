@@ -21,7 +21,7 @@
                 <form action="{% url 'article_img_del' img.pk %}" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="article" value="{{article.pk}}">
-                  <button class="button"></button>
+                  <button class="ml-3 button"><i class="fas fa-trash"></i></button>
                 </form>
               </p>
             </div>

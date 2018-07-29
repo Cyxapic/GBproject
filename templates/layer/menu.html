@@ -11,10 +11,10 @@
     Чекинешная
   </p>
   {% if user.is_authenticated %}
-    <a href="{% url 'account' %}">
-      <div class="card bro-card">
+    <div class="card bro-card">
+      <a href="{% url 'account' %}">
         <div class="card-content">
-          <div class="media">
+          <div class="media bro-media">
             <div class="menu-avatar" style="background-image: url({{user.get_avatar}});"></div>
             <div class="media-content">
               <p class="title is-4">Бро</p>
@@ -22,8 +22,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
     <ul class="menu-list">
       <li><a href="{% url 'logout' %}">Давай, бро!</a></li>
     </ul>

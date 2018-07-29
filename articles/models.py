@@ -56,17 +56,20 @@ class ArticleImage(models.Model):
     def get_image(self):
         return self.image.url if self.image else ''
 
-    def save(self, **kwargs):
+    def _create_thumb(self):
+        SIZE = (128, 128)
+        img = Image.open(self.image.path)
+        path = os.path.join(settings.MEDIA_ROOT, 'articles', 'thumbnails')
+        if not os.path.exists(path):
+            os.mkdir(path)
+        name = f'thum_{self.image.name.split(os.sep)[1]}'
+        thumb_path = os.path.join(path, name)
+        img.thumbnail(SIZE, Image.ANTIALIAS)
+        img.save(thumb_path, 'JPEG', quality=80)
+        self.thumbnail = f'articles/thumbnails/{name}'
+
+    def save(self,  **kwargs):
         super().save(**kwargs)
         if self.image and self.is_title:
-            SIZE = (128, 128)
-            img = Image.open(self.image.path)
-            path = os.path.join(settings.MEDIA_ROOT, 'articles', 'thumbnails')
-            if not os.path.exists(path):
-                os.mkdir(path)
-            name = f'thum_{self.image.name.split("/")[1]}'
-            thumb_path = os.path.join(path, name)
-            img.thumbnail(SIZE, Image.ANTIALIAS)
-            img.save(thumb_path, 'JPEG', quality=80)
-            self.thumbnail = f'articles/thumbnails/{name}'
+            self._create_thumb()
             super().save(**kwargs)

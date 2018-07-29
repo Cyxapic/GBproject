@@ -1,19 +1,17 @@
-from django_secrecy.utils import get_secret
-
-from .base import BASE_DIR
+from .base import secrets
 
 
 DEBUG = False
-
+# CHANGE '*' - on your domain names
 ALLOWED_HOSTS = ['*']
 
 # Default MySql
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': get_secret(BASE_DIR, 'NAME'),
-        'USER': get_secret(BASE_DIR, 'USER'),
-        'PASSWORD': get_secret(BASE_DIR, 'PASSWORD'),
+        'NAME': secrets.NAME,
+        'USER': secrets.USER,
+        'PASSWORD': secrets.PASSWORD,
         'HOST': '',
         'PORT': '',
         'TEST': {
