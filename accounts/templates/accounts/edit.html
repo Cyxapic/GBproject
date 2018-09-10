@@ -18,7 +18,7 @@
                                 {% if field.name == 'avatar' %}
                                     <div class="file is-boxed">
                                         <figure class="image is-128x128">
-                                            <img src="{{request.user.get_avatar}}" alt="Avatar">
+                                            <img src="{{user.get_avatar}}" alt="Avatar">
                                         </figure>
                                         <label class="file-label">
                                             {{field}}
