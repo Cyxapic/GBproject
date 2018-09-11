@@ -12,7 +12,7 @@
   </p>
   {% if user.is_authenticated %}
     <div class="card bro-card">
-      <a href="{% url 'account' %}">
+      <a href="{% url 'accounts:account' %}">
         <div class="card-content">
           <div class="media bro-media">
             <div class="menu-avatar" style="background-image: url({{user.get_avatar}});"></div>
@@ -25,12 +25,12 @@
       </a>
     </div>
     <ul class="menu-list">
-      <li><a href="{% url 'logout' %}">Давай, бро!</a></li>
+      <li><a href="{% url 'accounts:logout' %}">Давай, бро!</a></li>
     </ul>
   {% else %}
     <ul class="menu-list">
-      <li><a href="{% url 'login' %}">Заходи, бро!</a></li>
-      <li><a href="{% url 'register' %}">Стать бро!</a></li>
+      <li><a href="{% url 'accounts:login' %}">Заходи, бро!</a></li>
+      <li><a href="{% url 'accounts:register' %}">Стать бро!</a></li>
     </ul>
   {% endif %}
   
@@ -39,7 +39,7 @@
       Админские штучки
     </p>
     <ul class="menu-list">
-      <li><a href="{% url 'article_add' %}">Создать записку</a></li>
+      <li><a href="{% url 'articles:article_add' %}">Создать записку</a></li>
       {% if user.is_superuser %}
         <li><a href="/admin">Только я могу!</a></li>
       {% endif %}

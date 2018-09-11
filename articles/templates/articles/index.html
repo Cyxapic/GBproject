@@ -10,9 +10,13 @@
         {% for categry in categories %}
         <div class="category-card">
             <div class="front article-item"><h2 class="has-text-centered">{{ categry.name }}</h2></div>
-            <a class="back" href="{% url 'categories_items' categry.pk %}">
+            <a class="back" href="{% url 'articles:categories_items' categry.pk %}">
                 {{ categry.description }}
             </a>
+        </div>
+        {% empty %}
+         <div class="category-card">
+            <h2 class="has-text-centered">Пока ничего нет &#x1F605</h2>
         </div>
         {% endfor %}
     </div>

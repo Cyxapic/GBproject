@@ -1,20 +1,13 @@
-'''
-Settings made by django_secrecy app.
-https://github.com/Cyxapic/django-secrecy
-'''
 
 import os
 
 from django_secrecy.utils import get_secrets
 
 
-BASE_DIR = os.path.dirname(
-                os.path.dirname(
-                    os.path.dirname(os.path.abspath(__file__))))
+SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(SETTINGS_DIR))
 
-PROJ_NAME = BASE_DIR.split(os.sep)[-1]
-
-secrets = get_secrets(BASE_DIR, PROJ_NAME)
+secrets = get_secrets(SETTINGS_DIR)
 
 SECRET_KEY = secrets.SECRET_KEY
 
@@ -25,8 +18,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cleanup',
     'django_secrecy',
+    'django_cleanup',
     'accounts',
     'index',
     'articles',
@@ -42,7 +35,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = f'{PROJ_NAME}.urls'
+ROOT_URLCONF = 'GBproject.urls'
 
 TEMPLATES = [
     {
@@ -61,7 +54,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = f'{PROJ_NAME}.wsgi.application'
+WSGI_APPLICATION = 'GBproject.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -98,3 +91,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
