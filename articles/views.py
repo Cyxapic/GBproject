@@ -70,7 +70,7 @@ class ArticleAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return reverse('articles:article_edit', kwargs={'pk': self.object.pk})
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
 
 class ArticleImageAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
