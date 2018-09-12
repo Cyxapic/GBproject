@@ -32,7 +32,7 @@
             </span>
           </a>
         </div>
-        {% if user.is_superuser %}
+        {% if user.is_staff %}
         <div class="level-left">
             <a class="level-item" href="{% url 'articles:article_edit' article.pk %}">
               <span class="icon is-small">

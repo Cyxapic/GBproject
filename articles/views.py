@@ -29,7 +29,7 @@ class CategoriesItems(ListView):
     def get_queryset(self, **kwargs):
         cat_pk = self.kwargs.get('cat_pk')
         param = {"is_published": True, "category__pk":cat_pk}
-        if self.request.user.is_superuser:
+        if self.request.user.is_staff:
             param = {"category__pk":cat_pk}
         return Article.objects.filter(**param)
 
@@ -48,7 +48,7 @@ class ArticleView(DetailView):
     def get_queryset(self, **kwargs):
         pk = self.kwargs.get('pk')
         param = {"is_published": True, "pk":pk}
-        if self.request.user.is_superuser:
+        if self.request.user.is_staff:
             param = {"pk":pk}
         query = Article.objects.filter(**param)
         if not query.exists():
@@ -70,7 +70,7 @@ class ArticleAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return reverse('articles:article_edit', kwargs={'pk': self.object.pk})
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
 
 class ArticleImageAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -92,7 +92,7 @@ class ArticleImageAdd(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return reverse('articles:article_edit', kwargs={'pk':self.kwargs.get('pk')})
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
 
 class ArticleImageDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -104,7 +104,7 @@ class ArticleImageDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return reverse('articles:article_edit', kwargs={'pk':article})
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
 
 class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -121,7 +121,7 @@ class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return context
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
 
 class ArticleDel(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -130,7 +130,7 @@ class ArticleDel(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url='/'
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
 
 def category_add(request):
