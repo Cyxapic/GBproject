@@ -10,4 +10,5 @@ urlpatterns = [
     path('register/', views.RegView.as_view(), name="register"),
     path('edit/', views.EditView.as_view(), name="edit"),
     path('', views.AccountView.as_view(), name="account"),
+    path('activate/<int:uid>/<token>/', views.account_activate),
 ]
