@@ -33,10 +33,11 @@
           </a>
         </div>
         <div class="level-left">
+          {% if user.is_authenticated %}
           {% csrf_token %}
           {% user_like user article as like %}
           <a id="id_like" class="level-item"
-             {% if user.is_authenticated and not like %}
+             {% if not like %}
              data-url="{% url 'articles:like_article' article.pk %}"
              onclick="like();"
              {% endif %}>
@@ -46,9 +47,9 @@
               {% else %}
               <i class="far fa-thumbs-up"></i>
               {% endif %}
-              
             </span>
           </a>
+          {% endif %}
           <span id="id_count" class="level-item">Нравиться: {% article_likes article %}</span>
         </div>
         {% if user.is_staff %}
