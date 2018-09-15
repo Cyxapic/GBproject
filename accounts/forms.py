@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.tokens import default_token_generator
 
+from .models import AccountExtra
+
 
 class LoginForm(forms.ModelForm):
     email = forms.CharField(
@@ -106,4 +108,16 @@ class EditForm(forms.ModelForm):
             'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'input',
                                                },format = '%Y-%m-%d'),
             'avatar': forms.FileInput(attrs={'class': 'file-input',})
+        }
+
+
+class EditExtraForm(forms.ModelForm):
+    """Правка профиля - расширенная модель"""
+    class Meta:
+        model = AccountExtra
+        fields = ('gender', 'about')
+        widgets = {
+            'gender': forms.Select(attrs={'class': 'select',}),
+            'about': forms.Textarea(attrs={'class': 'textarea',
+                                            'placeholder': 'Поведай о себе...'}),
         }

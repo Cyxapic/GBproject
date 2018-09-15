@@ -1,5 +1,5 @@
 {% extends "layer/base.html" %}
-{% load static %}
+{% load static article_tag %}
 {% block title %}Записка об {{ article.title }}{% endblock title %}
 {% block cssconnect %}
 <link rel="stylesheet" href="{% static "articles/css/style.css" %}">
@@ -31,6 +31,25 @@
               <i class="fas fa-reply" aria-hidden="true"></i>
             </span>
           </a>
+        </div>
+        <div class="level-left">
+          {% csrf_token %}
+          {% user_like user article as like %}
+          <a id="id_like" class="level-item"
+             {% if user.is_authenticated and not like %}
+             data-url="{% url 'articles:like_article' article.pk %}"
+             onclick="like();"
+             {% endif %}>
+            <span id="thumb" class="icon is-small">
+              {% if like %}
+              <i class="fas fa-thumbs-up"></i>
+              {% else %}
+              <i class="far fa-thumbs-up"></i>
+              {% endif %}
+              
+            </span>
+          </a>
+          <span id="id_count" class="level-item">Нравиться: {% article_likes article %}</span>
         </div>
         {% if user.is_staff %}
         <div class="level-left">
@@ -70,3 +89,6 @@
   <button class="modal-close is-large" onclick="hide_modal('#image-modal');"></button>
 </div>
 {% endblock context %}
+{% block jsconnect %}
+<script src="{% static "articles/js/article.js" %}"></script>
+{% endblock jsconnect %}

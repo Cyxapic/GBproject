@@ -8,3 +8,13 @@ def get_thumbnail(article):
     default = '/static/articles/img/troll_face.jpg'
     img = article.articleimage_set.filter(is_title=True).last()
     return img.thumbnail.url if img else default
+
+
+@register.simple_tag
+def article_likes(article):
+    return article.like_set.article_likes(article)
+
+
+@register.simple_tag
+def user_like(user, article):
+    return article.like_set.user_like(user, article)

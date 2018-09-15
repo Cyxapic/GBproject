@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('article/category-add/', views.category_add, name='category_add'),
+    path('article/like/<int:pk>/', views.like_article, name='like_article'),
     path('article/add/', views.ArticleAdd.as_view(), name='article_add'),
     path('article/edit/<int:pk>/', views.ArticleUpdateView.as_view(), name='article_edit'),
     path('article/image/<int:pk>/', views.ArticleImageAdd.as_view(), name='article_image'),

@@ -41,11 +41,18 @@
                                         <div class="control has-text-centered">
                                             {{field}}
                                         </div>
-                                        {% if field.errors %}
-                                            {{field.errors}}
-                                        {% endif %}
+                                        {{field.errors}}
                                     </div>
                                 {% endif %}
+                            {% endfor %}
+                            {% for field in editextraform %}
+                                <div class="field">
+                                    <label class="label">{{field.label}}</label>
+                                    <div class="control has-text-centered">
+                                        {{field}}
+                                    </div>
+                                    {{field.errors}}
+                                </div>
                             {% endfor %}
                             <button class="button is-link">Отправить в неизвестность!</button>
                         </form>

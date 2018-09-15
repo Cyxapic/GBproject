@@ -62,3 +62,32 @@ function catgoryAdd() {
         });
     });
 }
+
+function like(){
+    let url = document.getElementById('id_like').getAttribute('data-url');
+    let csrftoken = document.getElementsByName('csrfmiddlewaretoken');
+    let headers = new Headers({
+        'X-CSRFToken': csrftoken[0].value
+    });
+    let init = {
+        method: 'POST',
+        headers: headers,
+    };
+    fetch(url, init).then(function(response) {
+        if (response.status !== 200) {
+            console.log('Error. Status Code: ' + response.status);
+            return;
+        }
+        response.json().then(function(resp) {
+            if (resp.error) {
+                console.log(resp.error);
+                return;
+            } else {
+                let el = document.getElementById('thumb');
+                let count = document.getElementById('id_count');
+                el.innerHTML = `<i class="fas fa-thumbs-up"></i>`;
+                count.innerHTML = `Нравится: ${resp.count}`
+            }
+        });
+    });
+}

@@ -4,6 +4,8 @@ from PIL import Image
 from django.db import models
 from django.conf import settings
 
+from .managers import LikeManager
+
 
 class Category(models.Model):
     '''Категории статей'''
@@ -73,3 +75,23 @@ class ArticleImage(models.Model):
         if self.image and self.is_title:
             self._create_thumb()
             super().save(**kwargs)
+
+
+class Like(models.Model):
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    date = models.DateField(auto_now_add=True)
+
+    objects = LikeManager()
+
+    def __str__(self):
+        return self.article
+
+    class Meta:
+        unique_together = ('article', 'user')

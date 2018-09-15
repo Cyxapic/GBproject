@@ -8,6 +8,7 @@ html, body {
     display: flex;
 }
 .ml-3{margin-left: 3rem;}
+.mt-3{margin-top: 3rem;}
 .errorlist{
     margin: 0 auto !important;
     padding: 0;
@@ -110,6 +111,32 @@ html, body {
 .bro-card:hover{background-color: #f5f5f5;}
 .bro-card a{box-sizing: content-box;}
 .bro-media{align-items: center;}
+.bro-card-data{
+  padding: 10px;
+  border: 1px solid #cecece;
+  border-radius: 5px;
+}
+.bro-image{
+  display: flex;
+  margin: 0 !important;
+  padding: 0.5rem;
+  border-right: 1px solid #dbdbdb;
+  width: 250px;
+}
+.bro-dir{
+  flex-direction: column;
+  padding-left: 2rem;
+}
+.bro-card-item {
+  align-items: center;
+  color: #363636;
+  display: flex;
+  justify-content: flex-start;
+  padding: .5em .75em;
+}
+.gender{
+  font-size: 4rem;
+}
 .menu-avatar{
   display: block;
   width: 2rem;

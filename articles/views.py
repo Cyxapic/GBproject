@@ -6,9 +6,11 @@ from django.views.generic import (ListView, DetailView, CreateView,
                                   UpdateView, DeleteView)
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.http import Http404, JsonResponse
+from django.shortcuts import get_object_or_404
 
-from .models import Category, Article, ArticleImage
+from .models import Category, Article, ArticleImage, Like
 from .forms import CategoryAddForm, ArticleForm, ArticleImageForm
 
 
@@ -42,7 +44,7 @@ class CategoriesItems(ListView):
 
 class ArticleView(DetailView):
     '''Вывести запись'''
-    template_name = 'articles/item.html'
+    template_name = 'articles/article.html'
     context_object_name = 'article'
 
     def get_queryset(self, **kwargs):
@@ -132,7 +134,7 @@ class ArticleDel(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         return self.request.user.is_staff
 
-
+@login_required
 def category_add(request):
     resp = {'error': None}
     if request.method == "POST":
@@ -143,4 +145,18 @@ def category_add(request):
             resp.update({'pk': cat.pk, 'name': cat.name})
         else:
             resp["error"] = "Ошибка создания категории!"
+    return JsonResponse(resp)
+
+
+@login_required
+def like_article(request, pk):
+    resp = {'error': None}
+    if request.method == "POST":
+        user = request.user
+        article = get_object_or_404(Article, pk=pk)
+        _, created = Like.objects.get_or_create(user=user, article=article)
+        if  created:
+            resp['count'] = Like.objects.article_likes(article)
+        else:
+            resp['error'] = 400
     return JsonResponse(resp)
