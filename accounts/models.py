@@ -27,6 +27,11 @@ class Account(AbstractBaseUser, PermissionsMixin):
         null=True,
         verbose_name='Автарка'
     )
+    image = models.URLField(
+        blank=True,
+        null=True,
+        verbose_name='G+ автарка'
+    )
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -40,8 +45,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def get_avatar(self):
-        default = '/static/accounts/img/anonymous.png'
-        return self.avatar.url if self.avatar else default
+        if self.avatar:
+            avatar = self.avatar.url
+        elif self.image:
+            avatar = self.image
+        else:
+            avatar = '/static/accounts/img/anonymous.png'
+        return avatar
 
     @property
     def get_name(self):
@@ -65,15 +75,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 class AccountExtra(models.Model):
     """Proxy Account GB told me to do this :D"""
-    NO = 'Не уверен'
+    OTHER = 'Не Скажу'
     MALE = 'Мужик'
     FEMALE = 'Девушка'
-    SOME = 'Другой'
     GENDER = (
-        (0, NO),
+        (0, OTHER),
         (1, MALE),
         (2, FEMALE),
-        (3, SOME),
     )
     account = models.OneToOneField(
         Account,
@@ -81,6 +89,11 @@ class AccountExtra(models.Model):
         on_delete=models.CASCADE
     )
     gender = models.PositiveSmallIntegerField(choices=GENDER, default=0)
+    g_plus = models.URLField(
+        blank=True,
+        null=True,
+        verbose_name='G+ link'
+    )
     about = models.TextField(
         verbose_name='О себе',
         max_length=512,
@@ -93,9 +106,12 @@ class AccountExtra(models.Model):
             '<i class="fas fa-genderless"></i>',
             '<i class="fas fa-mars"></i>',
             '<i class="fas fa-venus"></i>',
-            '<i class="fas fa-transgender-alt"></i>',
         )
         return gender_tpl[self.gender]
+
+    @property
+    def get_g_plus_link(self):
+        return self.g_plus if self.g_plus else None
 
     @receiver(post_save, sender=Account)
     def create_user_extra(sender, instance, created, **kwargs):

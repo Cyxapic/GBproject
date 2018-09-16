@@ -123,6 +123,10 @@ html, body {
   border-right: 1px solid #dbdbdb;
   width: 250px;
 }
+.bro-image img{
+  height: 100%;
+  width: 100%;
+}
 .bro-dir{
   flex-direction: column;
   padding-left: 2rem;
