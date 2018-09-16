@@ -26,4 +26,7 @@ def social_user_save(backend, user, response, *args, **kwargs):
                 user.accountextra.about = about
         else:
             raise AuthForbidden('social_core.backends.google.GoogleOAuth2')
-        user.save()
+        try:
+            user.save()
+        except:
+            raise AuthForbidden('social_core.backends.google.GoogleOAuth2')

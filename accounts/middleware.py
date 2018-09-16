@@ -6,5 +6,4 @@ from social_core.exceptions import AuthCanceled
 class SocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
     def process_exception(self, request, exception):
         if isinstance(exception, AuthCanceled):
-        #type(exception) == AuthCanceled:
             return redirect('/g-plus/')
