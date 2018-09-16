@@ -3,7 +3,7 @@ from .base import secrets
 
 DEBUG = False
 # CHANGE '*' - on your domain names
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['dev.cyxapic.ru']
 
 # Default MySql
 DATABASES = {
