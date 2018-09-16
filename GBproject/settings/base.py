@@ -34,6 +34,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
@@ -91,7 +92,7 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/g-plus/'
 
-SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+#SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 SOCIAL_AUTH_URL_NAMESPACE= 'social'
