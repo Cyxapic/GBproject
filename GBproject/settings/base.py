@@ -97,6 +97,8 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/g-plus/'
 
+SOCIAL_AUTH_LOGIN_ERROR_URL = LOGIN_ERROR_URL
+
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
