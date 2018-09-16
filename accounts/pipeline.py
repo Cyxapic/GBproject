@@ -1,6 +1,6 @@
 import re
 
-from​ social_core.exceptions import AuthForbidden
+from social_core.exceptions import AuthForbidden
 
 
 pattern = r'&\w+;\w+&\w+;'
