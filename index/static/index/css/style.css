@@ -250,6 +250,8 @@ html, body {
 .titul-img:focus + label:before {
   box-shadow: inset 0 2px 3px rgba(0,0,0,.2), 0 0 0 3px rgba(255,255,0,.7);
 }
+.b-hide{display: none;}
+.b-show{display: block;}
 @media (max-width: 1200px) {
     #main-menu{display: none;}
     .mob-btn-wraper{display: block;}
