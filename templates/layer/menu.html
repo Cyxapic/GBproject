@@ -11,29 +11,40 @@
     Чекинешная
   </p>
   {% if user.is_authenticated %}
-    <div class="card bro-card">
-      <a href="{% url 'accounts:account' %}">
-        <div class="card-content">
-          <div class="media bro-media">
-            <div class="menu-avatar" style="background-image: url({{user.get_avatar}});"></div>
-            <div class="media-content">
-              <p class="title is-4">Бро</p>
-              <p class="subtitle is-6">{{user.username}}</p>
+    
+    <div class="dropdown is-hoverable">
+      <div class="dropdown-trigger">
+        <div class="card bro-card" aria-haspopup="true" aria-controls="dropdown-menu4">
+          <div class="card-content">
+            <div class="media bro-media">
+              <div class="menu-avatar" style="background-image: url({{user.get_avatar}});"></div>
+              <div class="media-content">
+                <p class="title is-4">Бро</p>
+                <p class="subtitle is-6">{{user.username}}</p>
+              </div>
             </div>
           </div>
+          <span class="">
+            <i class="far fa-caret-square-down"></i>
+          </span>
         </div>
-      </a>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+        <div class="dropdown-content">
+          <a href="{% url 'accounts:account' %}" class="dropdown-item">Твои данные, Бро</a>
+          <hr class="dropdown-divider">
+          <a href="#" class="dropdown-item">Магазинчик Бро</a>
+          <hr class="dropdown-divider">
+          <a href="{% url 'accounts:logout' %}" class="dropdown-item">Давай, бро!</a>
+        </div>
+      </div>
     </div>
-    <ul class="menu-list">
-      <li><a href="{% url 'accounts:logout' %}">Давай, бро!</a></li>
-    </ul>
   {% else %}
     <ul class="menu-list">
       <li><a href="{% url 'accounts:login' %}">Заходи, бро!</a></li>
       <li><a href="{% url 'accounts:register' %}">Стать бро!</a></li>
     </ul>
   {% endif %}
-  
   {% if user.is_staff %}
     <p class="menu-label">
       Админские штучки
