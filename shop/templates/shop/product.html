@@ -1,0 +1,40 @@
+{% extends "layer/base.html" %}
+{% load static %}
+{% block context %}
+    <h2 class="title has-text-centered">Магазинчик Бро.</h2>
+    <div class="columns">
+        <div class="column">
+          <figure class="image is-128x128">
+                <img src="/media/{{ product.image }}" alt="{{ product.short_desc }}">
+              </figure>
+            <div class="mt-3 panel">
+              <span class="panel-block is-active">
+                  {{ product.name }}
+              </span>
+            </div>
+            <div class="panel">
+              <span class="panel-block">
+                  {{ product.price }} <span>руб</span>
+              </span>
+            </div>
+            <div class="panel">
+              <span class="panel-block">
+                  {{ product.description }}
+              </span>
+            </div>
+             <div class="panel">
+              <span class="panel-block is-active">
+                  <a href="{#% url 'basket:add' product.pk %#}#">
+                    заказать
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+              </span>
+            </div>
+            <div class="panel">
+              <span class="panel-block">
+                  <span>Осталось: {{ product.quantity }}</span>
+              </span>
+            </div>
+        </div>
+  </div>
+{% endblock context %}

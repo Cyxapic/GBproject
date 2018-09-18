@@ -8,8 +8,9 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
-    path('about/', TemplateView.as_view(template_name="layer/about_temp.html")),
     path('articles/', include(('articles.urls', 'articles'), namespace='articles')),
+    path('shop/', include(('shop.urls', 'shop'), namespace='shop')),
+    path('about/', TemplateView.as_view(template_name="layer/about_temp.html")),
     path('auth/verify/google/oauth2/', include("social_django.urls", namespace="social")),
     path('g-plus/', TemplateView.as_view(template_name="layer/g_plus.html")),
     path('', include(('index.urls', 'index'), namespace='index'))
