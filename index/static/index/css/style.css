@@ -162,6 +162,17 @@ html, body {
   background-position: 50% 50%;
   background-size: cover;
 }
+.line-bloks{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.line-bloks li{
+  list-style-type: none;
+}
+.basket-price{
+  width: 6rem;
+}
 .mob-btn-wraper{
   display: none;
   position: absolute;

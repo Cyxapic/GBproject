@@ -1,54 +1,79 @@
 {% extends "layer/base.html" %}
 {% load static %}
 {% block context %}
-    <h1 class="title has-text-centered">Магазинчик Бро.</h1>
-    <p class="subtitle has-text-centered">
-        Чето тут
-    </p>
-    <div class="columns">
-        <div class="column">
-
-{% for product in products %}
-<div class="box">
-  <article class="media">
-    <div class="media-left">
-      <figure class="image is-64x64">
-        <img src="/media/{{ product.image }}" alt="{{ product.short_desc }}">
-      </figure>
-    </div>
-    <div class="media-content">
-      <div class="content">
-        <p>
-          <strong>Категория:</strong> <small>{{ product.category.name }}</small>
-          <br>
-          <strong>Название:</strong> <small>{{ product.name }}</small>
-          <br>
-          <strong>Краткое описание:</strong> <small>{{ product.short_desc }}</small>
-        </p>
-      </div>
-      <nav class="level is-mobile">
-        <div class="level-left">
-          <span class="level-item" aria-label="reply">
-            <span class="is-small">
-               Цена: {{ product.price }}
-            </span>
-          </span>
-          <span class="level-item" aria-label="retweet">
-            <span class="is-small">
-                <span>На складе: {{ product.quantity }} </span>
-            </span>
-          </span>
-          <a href="{% url 'shop:product' product.pk %}" class="level-item" aria-label="like">
-            <span class="is-small">
-                Посмотреть
-            </span>
-          </a>
+  <h1 class="title has-text-centered">Магазинчик Бро.</h1>
+  <div class="subtitle has-text-centered">
+    <form action=".">
+    <ul class="line-bloks">
+      <li><a href="{% url 'shop:shop' %}">Все категории</a></li>
+    {% for category in categories %}
+      <li><a href="{% url 'shop:shop' %}?category={{category.0}}">{{category.1}}</a></li>
+    {% endfor %}
+    </ul>
+    </form>
+  </div>
+  <div class="columns">
+    <div class="column">
+      {% for product in products %}
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <img src="/media/{{ product.image }}" alt="{{ product.short_desc }}">
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong>Категория:</strong> <small>{{ product.category.name }}</small>
+                  <br>
+                  <strong>Название:</strong> <small>{{ product.name }}</small>
+                  <br>
+                  <strong>Краткое описание:</strong> <small>{{ product.short_desc }}</small>
+                </p>
+              </div>
+              <nav class="level is-mobile">
+                <div class="level-left">
+                  <span class="level-item" aria-label="reply">
+                    <span class="is-small">
+                      Цена: {{ product.price }}
+                    </span>
+                  </span>
+                  <span class="level-item" aria-label="retweet">
+                    <span class="is-small">
+                      <span>На складе: {{ product.quantity }} </span>
+                    </span>
+                  </span>
+                  <a href="{% url 'shop:product' product.pk %}" class="level-item" aria-label="like">
+                    <span class="is-small">
+                      Посмотреть
+                    </span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </article>
         </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="columns">
+    {% if is_paginated %}
+      <nav class="column pagination is-rounded">
+        <ul class="pagination-list pag-ul">
+          {% if page_obj.has_previous %}
+            <li class="pagination-link">
+              <a href="?page={{ page_obj.previous_page_number }}{% if category %}&category={{category}}{% endif %}">Обратно</a>
+            </li>
+          {% endif %}
+          <li><a class="pagination-link is-current">{{ page_obj.number }}</a></li>
+          {% if page_obj.has_next %}
+            <li class="pagination-link">
+              <a href="?page={{ page_obj.next_page_number }}{% if category %}&category={{category}}{% endif %}">Туда</a>
+            </li>
+          {% endif %}
+        </ul>
       </nav>
-    </div>
-  </article>
-</div>
- {% endfor %}
-         </div>
-    </div>
+    {% endif %}
+  </div>
 {% endblock context %}

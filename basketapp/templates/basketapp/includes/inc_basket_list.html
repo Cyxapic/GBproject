@@ -1,0 +1,30 @@
+<div class="panel">
+  <p class="panel-heading">
+    Корзина, {{ user.get_name }}
+  </p>
+{% for item in basket_items %}
+  <div class="panel-block">
+    <img class="image is-48x48" src="{{ item.product.image.url }}" alt="{{ item.product.short_desc }}">
+    <ul class="line-bloks">
+        <li>{{ item.product.category.name }}</li>
+        <li>{{ item.product.name }}</li>
+        <li>{{ item.product.price }}руб</li>
+        <li>{{ item.product_cost }}руб</li>
+        <li class="basket-price"><input type="number" name="{{ item.pk }}" min="0" value="{{ item.quantity }}" class="input"></li>
+        <li><a href="{#% url 'basket:remove' item.pk %#}#">удалить</a></li>
+    </ul>
+  </div>
+{% empty %}
+<article class="message is-info">
+  <div class="message-body">
+    Бро, ты ничего не купил!
+  </div>
+</article>
+{% endfor %}
+</div>
+{% if basket_items %}
+    <div class="basket_summary">
+        В корзине {{ basket_items.0.total_quantity }} товаров общей стоимостью
+        {{ basket_items.0.total_cost }} руб
+    </div>
+{% endif %}

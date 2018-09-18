@@ -4,7 +4,7 @@
 
 # DEVELOPMENT MINIMAL SETTINGS: #
 - pip install -r requirements.txt
-- file name: development.py
+- file name: development.py or you can use ```generator --dev``` if you install django-secrecy
 - don't forget to create 'secrets.json'
     - minimal {"NAME": "", "USER": "", "PASSWORD": "", "SECRET_KEY": "NOT A SECRET"}
 

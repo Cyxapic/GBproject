@@ -1,0 +1,9 @@
+{% extends 'layer/base.html' %}
+{% load static %}
+{% block context %}
+    {% include 'basketapp/includes/inc_basket_list.html' %}
+    <hr>
+    <a href="#">Оформить заказ</a>
+    <hr>
+    <a href="{% url 'shop:shop' %}">К магазину</a>
+{% endblock context %}
