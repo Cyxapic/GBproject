@@ -2,8 +2,9 @@ from basketapp.models import Basket
 
 
 def basket(request):
-    basket = Basket.objects.filter(user=request.user)
-    basket = basket if basket else ''
+    basket = ''
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
     return {
         'basket': basket,
     }
