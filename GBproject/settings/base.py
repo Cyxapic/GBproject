@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'articles',
     'shop',
     'basketapp',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,7 @@ TEMPLATES = [
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
                 'index.context_processors.menus',
+                'shop.context_processors.basket',
             ],
         },
     },

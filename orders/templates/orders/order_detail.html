@@ -1,0 +1,23 @@
+{% extends "layer/base.html" %}
+{% load static %}
+{% block title %}Заказ/просмотр{% endblock title %}
+{% block context %}
+    {% include 'orders/includes/inc_order_summary.html' %}
+    <div class="basket_list">
+        {% for item in object.orderitems.select_related %}
+            <div class="panel-block">
+                <img class="image is-48x48" src="{{ item.product.image.url }}" alt="{{ item.product.short_desc }}">
+                <ul class="line-bloks">
+                    <li>{{ item.product.category.name }}</li>
+                    <li>{{ item.product.name }}</li>
+                    <li>{{ item.product.price }}&nbspруб</li>
+                    <li>x {{ item.quantity }} шт.</li>
+                    <li> = {{ item.get_product_cost }}&nbspруб</li>
+                    <li class="basket-price"><input type="number" name="{{ item.pk }}" min="0" value="{{ item.quantity }}" class="input"></li>
+                    <li><a href="{#% url 'basket:remove' item.pk %#}#">удалить</a></li>
+                </ul>
+              </div>
+        {% endfor %}
+    </div>
+    {% include 'orders/includes/inc_order_actions.html' %}
+{% endblock context %}

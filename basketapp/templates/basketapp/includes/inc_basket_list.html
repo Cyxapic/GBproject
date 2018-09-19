@@ -27,4 +27,6 @@
         В корзине {{ basket_items.0.total_quantity }} товаров общей стоимостью
         {{ basket_items.0.total_cost }} руб
     </div>
+    <hr>
+    <a href="{% url 'orders:order_create' %}">Оформить заказ</a>
 {% endif %}

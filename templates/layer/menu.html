@@ -11,7 +11,6 @@
     Чекинешная
   </p>
   {% if user.is_authenticated %}
-    
     <div class="dropdown is-hoverable">
       <div class="dropdown-trigger">
         <div class="card bro-card" aria-haspopup="true" aria-controls="dropdown-menu4">
@@ -33,14 +32,15 @@
         <div class="dropdown-content">
           <a href="{% url 'accounts:account' %}" class="dropdown-item">Твои данные, Бро</a>
           <hr class="dropdown-divider">
-          <a href="{% url 'basketapp:basket' %}" class="dropdown-item">Корзина</a>
-          <hr class="dropdown-divider">
-          <a href="#" class="dropdown-item">Заказы</a>
+          <a href="{% url 'orders:orders_list' %}" class="dropdown-item">Заказы</a>
           <hr class="dropdown-divider">
           <a href="{% url 'accounts:logout' %}" class="dropdown-item">Давай, бро!</a>
         </div>
       </div>
     </div>
+    <p class="menu-label" style="font-size:2rem;">
+      <a href="{% url 'basketapp:basket' %}">{{ basket.0.total_quantity }}<i class="fas fa-cart-plus"></i></a>
+    </p>
   {% else %}
     <ul class="menu-list">
       <li><a href="{% url 'accounts:login' %}">Заходи, бро!</a></li>

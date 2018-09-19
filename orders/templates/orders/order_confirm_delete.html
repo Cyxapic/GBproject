@@ -1,0 +1,18 @@
+{% extends 'layer/base.html' %}
+{% load static %}
+{% block title %}Заказ/удаление{% endblock title %}
+{% block context %}
+<article class="message is-danger has-text-centered">
+  <div class="message-header" style="justify-content:center;">
+    <span>Уверены, что хотите удалить?</span>
+  </div>
+  <div class="message-body">
+    {% include 'orders/includes/inc_order_summary.html' %}
+    <form method="post">
+        {% csrf_token %}
+        <button class="button is-danger is-outlined" type="submit">удалить</button>
+    </form>
+    <a class="mt-3 button is-success is-outlined" href="{% url 'orders:orders_list' %}">отмена</a>
+  </div>
+</article>
+{% endblock context %}

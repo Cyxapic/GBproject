@@ -1,0 +1,6 @@
+{% if object.status == 'FM' %}
+    <a class="button is-primary is-outlined" href="{% url 'orders:order_forming_complete' object.pk %}">соверишть покупку</a>
+    <a class="button is-danger is-outlined" href="{% url 'orders:order_delete' object.pk %}">удалить</a>
+{% endif %}
+    <a class="button is-outlined" href="{% url 'orders:orders_list' %}">к списку заказов</a>
+    <a class="button is-link is-outlined" href="{% url 'shop:shop' %}">на главную</a>
