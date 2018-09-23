@@ -47,39 +47,41 @@ $(function(){
         }
         orderSummaryUpdate(price_arr[orderitem_num], delta_quantity);
     });
+    //**************************************************************************
     // add price product to order
     // НЕ ВЫШЕЛ КАМЕННЫЙ ЦВЕТОК
-    // $('.order_form').on('change', 'select', function (event) {
-    //     const target = event.target;
-    //     orderitem_num = parseInt(target.name.split('-')[1]);
-    //     if (target.value) {
-    //         $(`#id_orderitems-${orderitem_num}-quantity`).val(1);
-    //         let priceTD = $(`#id_orderitems-${orderitem_num}-price`).closest('td');
-    //         getPrice(target.value, priceTD, orderitem_num, );
-    //     }
-    // });
-    // function getPrice(prodId, block, orderNum){
-    //     const url = $('#url').attr('data-url');
-    //     data = {
-    //         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
-    //         prod_pk: prodId,
-    //     }
-    //     $.post(url, data).done(
-    //         function (response) {
-    //             let price = response.price;
-    //             let tpl = `<span class="orderitems-${orderNum}-price">
-    //                             ${price.replace('.', ',')}
-    //                        </span> руб`;
-    //             block.html(tpl);
-    //             price_arr.push(price);
-    //             delta_quantity = 1;
-    //             let total_forms = parseInt($('input[name="orderitems-TOTAL_FORMS"]').val());
-    //             $('input[name="orderitems-TOTAL_FORMS"]').val(total_forms + 1);
-    //             TOTAL_FORMS = total_forms + 1;
-    //             orderSummaryUpdate(price_arr[orderNum], delta_quantity)
-    //         }
-    //     );
-    // }
+    $('.order_form').on('change', 'select', function (event) {
+        const target = event.target;
+        orderitem_num = parseInt(target.name.split('-')[1]);
+        if (target.value) {
+            $(`#id_orderitems-${orderitem_num}-quantity`).val(1);
+            let priceTD = $(`#id_orderitems-${orderitem_num}-price`).closest('td');
+            getPrice(target.value, priceTD, orderitem_num, );
+        }
+    });
+    function getPrice(prodId, block, orderNum){
+        const url = $('#url').attr('data-url');
+        data = {
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+            prod_pk: prodId,
+        }
+        $.post(url, data).done(
+            function (response) {
+                let price = response.price;
+                let tpl = `<span class="orderitems-${orderNum}-price">
+                                ${price.replace('.', ',')}
+                           </span> руб`;
+                block.html(tpl);
+                delta_quantity = 1;
+                let total_forms = parseInt($('input[name="orderitems-TOTAL_FORMS"]').val());
+                $('input[name="orderitems-TOTAL_FORMS"]').val(total_forms + 1);
+                TOTAL_FORMS = total_forms + 1;
+                orderSummaryUpdate(price, delta_quantity);
+                price_arr.push(price);
+            }
+        );
+    }
+    //**************************************************************************
     function orderSummaryUpdate(orderitem_price, delta_quantity) {
         delta_cost = orderitem_price * delta_quantity;
         order_total_cost = Number((order_total_cost + delta_cost).toFixed(2));
@@ -87,9 +89,16 @@ $(function(){
         $('.order_total_cost').html(order_total_cost.toString());
         $('.order_total_quantity').html(order_total_quantity.toString());
     }
+    function deleteOrderItem(row) {
+        var target_name= row[0].querySelector('input[type="number"]').name;
+        orderitem_num = parseInt(target_name.split('-')[1]);
+        delta_quantity = -quantity_arr[orderitem_num];
+        orderSummaryUpdate(price_arr[orderitem_num], delta_quantity);
+    }
     $('.formset_row').formset({
         addText: 'добавить продукт',
         deleteText: 'удалить',
         prefix: 'orderitems',
+        removed: deleteOrderItem
     });
 })
