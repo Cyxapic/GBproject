@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = [
+    path('api-get-price/', views.get_price, name='api_get_price'),
     path('create/', views.OrderItemsCreate.as_view(), name='order_create'),
     path('update/<int:pk>/', views.OrderItemsUpdate.as_view(), name='order_update'),
     path('delete/<int:pk>/', views.OrderDelete.as_view(), name='order_delete'),

@@ -10,10 +10,13 @@ class OrderForm(forms.ModelForm):
 
 
 class OrderItemForm(forms.ModelForm):
+
+    price = forms.CharField(label='цена', required=False)
+
     class Meta:
         model = OrderItem
-        fields = ('product', 'quantity',)
+        fields = ('product', 'quantity')
         widgets = {
             'product': forms.Select(attrs={'class':'select', }),
-            'quantity': forms.TextInput(attrs={'class': 'input'})
+            'quantity': forms.NumberInput(attrs={'class': 'input'})
         }

@@ -6,8 +6,9 @@
     <div class="order_form">
         <form action="" method="post">
             {% csrf_token %}
+            {{ orderitems.management_form }}
+            <span id="url" data-url="{% url 'orders:api_get_price' %}"></span>
             <table class="table">
-                {{ orderitems.management_form }}
                 {% for form in orderitems.forms %}
                     {% if forloop.first %}
                         <thead>
@@ -28,8 +29,14 @@
                                         {{ hidden }}
                                     {% endfor %}
                                 {% endif %}
-                                {{ field.errors.as_ul }}
-                                {{ field }}
+                                {% if field.name == 'price' and field.value %}
+                                   <span class="orderitems-{{forloop.parentloop.counter0}}-price">
+                                         {{ field.value }}
+                                    </span> руб
+                               {% else %}
+                                   {{ field.errors.as_ul }}
+                                   {{ field }}
+                               {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
@@ -39,5 +46,9 @@
             {% include 'orders/includes/inc_order_actions.html' %}
         </form>
     </div>
-
 {% endblock context %}
+{% block jsconnect %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static 'orders/js/jquery.formset.js' %}"></script>
+<script src="{% static 'orders/js/orders_scripts.js' %}"></script>
+{% endblock jsconnect %}

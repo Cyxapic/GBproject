@@ -35,3 +35,7 @@ class Basket(models.Model):
     @staticmethod
     def get_items(user):
         return user.basket_set.all()
+
+    @staticmethod
+    def get_item(pk):
+        return Basket.objects.filter(pk=pk).first()
