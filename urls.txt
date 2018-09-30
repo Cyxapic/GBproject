@@ -1,0 +1,7 @@
+https://dev.cyxapic.ru/
+https://dev.cyxapic.ru/shop/
+https://dev.cyxapic.ru/shop/product/1/
+https://dev.cyxapic.ru/shop/product/2/
+https://dev.cyxapic.ru/basket/
+https://dev.cyxapic.ru/orders/
+https://dev.cyxapic.ru/orders/read/5/

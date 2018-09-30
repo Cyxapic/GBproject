@@ -16,7 +16,7 @@ class ShopView(ListView):
         if category:
             queryset.update(category)
         products = Product.objects.filter(**queryset)
-        return products
+        return products.select_related()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -44,4 +44,4 @@ class ProductView(DetailView):
         product = Product.objects.filter(pk=pk,
                                          is_active=True,
                                          category__is_active=True)
-        return product
+        return product.select_related()

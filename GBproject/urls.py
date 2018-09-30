@@ -16,4 +16,13 @@ urlpatterns = [
     path('auth/verify/google/oauth2/', include("social_django.urls", namespace="social")),
     path('g-plus/', TemplateView.as_view(template_name="layer/g_plus.html")),
     path('', include(('index.urls', 'index'), namespace='index'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+
+if settings.DEBUG:
+    import debug_toolbar
+    
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls))
+    ]
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    

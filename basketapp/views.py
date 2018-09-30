@@ -18,7 +18,7 @@ class BasketView(LoginRequiredMixin, ListView):
     context_object_name = 'basket_items'
 
     def get_queryset(self):
-        basket = Basket.objects.filter(user=self.request.user)
+        basket = self.request.user.basket_set.select_related()
         return basket.order_by('product__category')
 
 
